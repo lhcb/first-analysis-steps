@@ -15,7 +15,7 @@ Paragraph(s) of introductory material.
 3.  find the dataset in the Bookkeeping
 4.  ganga jobs
 5.  retrieve big files from the grid
-6.  open the resulting nTuple in ROOT and make mass peak
+6.  [open the resulting nTuple in ROOT and make mass peak](06-plotting.html)
 
 This is a rough list of the areas we would like to cover:
 
