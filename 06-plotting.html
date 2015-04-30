@@ -26,45 +26,24 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
           <h1 class="title">First Steps in LHCb</h1>
-          
-<p>Paragraph(s) of introductory material.</p>
-<div id="prerequisites" class="prereq panel panel-warning">
+          <h2 class="subtitle">Plotting variables in your ntuple</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-education"></span>Prerequisites</h2>
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
-<p>What learners need to know before tackling this lesson.</p>
+<ul>
+<li>Open an ntuple in ROOT</li>
+<li>Use the Draw command to plot a histogram</li>
+<li>Add a cut in the Draw command</li>
+<li>Basic plot formatting</li>
+<li>Use a simple event loop to create several plots at once</li>
+<li>Save plots in a root file or as images</li>
+</ul>
 </div>
 </div>
-<h2 id="topics">Topics</h2>
-<ol style="list-style-type: decimal">
-<li><a href="01-screen.html">Using screen to keep things running</a></li>
-<li>basic option file for DaVinci</li>
-<li>find the dataset in the Bookkeeping</li>
-<li>ganga jobs</li>
-<li>retrieve big files from the grid</li>
-<li><a href="06-plotting.html">open the resulting nTuple in ROOT and make mass peak</a></li>
-</ol>
-<p>This is a rough list of the areas we would like to cover:</p>
-<ul>
-<li>Setting up your development environment</li>
-<li>Working with the repository</li>
-<li>First DecayTreeTuple on the grid (including screen, EOS storage, ...)</li>
-<li>Fun with LoKi functors</li>
-<li>(re/ab)using a stripping line</li>
-<li>Swapping mass hypotheses</li>
-<li>Decay tree fitter</li>
-<li>TIS, TOS and HLT</li>
-<li>Applying multivariate tools in DecayTreeTuple</li>
-</ul>
-<p>Each area needs to be broken down into chunks of 10-15minute topics.</p>
-<h2 id="other-resources">Other Resources</h2>
-<ul>
-<li><a href="motivation.html">Motivation</a></li>
-<li><a href="reference.html">Reference</a></li>
-<li><a href="discussion.html">Discussion</a></li>
-<li><a href="instructors.html">Instructor's Guide</a></li>
-</ul>
+<p>Open a file in ROOT:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">root</span> -l myntuple.root</code></pre>
         </div>
       </div>
       <div class="footer">
