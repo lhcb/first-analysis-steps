@@ -32,3 +32,6 @@ curl https://gist.githubusercontent.com/betatim/476078b01443fa3a1885/raw/e90b6a7
 addusercern thead
 yum install -y cern-config-users
 /usr/sbin/cern-config-users --setup-all
+
+# Make sure the clock doens't drift
+service ntpd start
