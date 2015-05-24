@@ -30,8 +30,49 @@ curl https://gist.githubusercontent.com/betatim/476078b01443fa3a1885/raw/e90b6a7
 
 # Install extra users
 addusercern thead
-yum install -y cern-config-users
-/usr/sbin/cern-config-users --setup-all
+addusercern kdungs
+addusercern ibabusch
+addusercern apearce
+addusercern apuignav
+addusercern raaij
+# Participants
+addusercern rquaglia
+addusercern amauri
+addusercern svende
+addusercern dgerick
+addusercern flionett
+addusercern mneuner
+addusercern bmaurin
+addusercern eprice
+addusercern ismith
+addusercern mstahl
+addusercern bsiddi
+addusercern admorris
+addusercern mfiore
+addusercern egraveri
+addusercern maxime
+addusercern vibattis
+addusercern lupappal
+addusercern dsaunder
+addusercern mveghel
+addusercern ldufour
+addusercern anandi
+addusercern ggazzoni
+addusercern mussini
+addusercern mfiorini
+addusercern emichiel
+addusercern apiucci
+addusercern vibellee
+addusercern lbel
+addusercern nskidmor
+addusercern segiani
+addusercern mdemmer
+addusercern tiwillia
+addusercern kdreiman
+addusercern vcogoni
+addusercern lan
+addusercern cvacca
+addusercern dmitzel
 
 # Make sure the clock doens't drift
 service ntpd start

@@ -6,6 +6,6 @@ keypair="timslaptop"
 # each time we create a new instance and reuse a hostname
 # people will get big fat warnings from ssh as the keys
 # will have changed
-for i in 3 4 5 6 7; do
+for i in 8 9 10 11; do
     openstack server create --key-name "$keypair" --flavor m1.large --image "$image" --user-data "configure-vm.sh" lhcbstarterkit$i
 done;
