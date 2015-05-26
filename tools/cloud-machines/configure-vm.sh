@@ -18,11 +18,32 @@ tar xzf v2.4.1.tar.gz
 cd git-2.4.1
 make configure
 ./configure --prefix=/usr
-make all doc
+make -j5 all doc
 make install install-doc
 
 # Install editors
 yum install -y emacs
+yum install -y xeyes
+yum install -y xauth
+
+# Jupyterhub
+export PATH="/usr/local/bin:$PATH"
+yum install -y npm
+yum install -y sqlite-devel
+wget https://www.python.org/ftp/python/3.4.3/Python-3.4.3.tgz
+tar xzf Python-3.4.3.tgz
+cd Python-3.4.3
+./configure
+make -j5
+make altinstall
+cd /tmp/
+git clone https://github.com/jupyter/jupyterhub.git
+cd jupyterhub
+npm install -g configurable-http-proxy
+pip3.4 install -r requirements.txt
+pip3.4 install .
+pip3.4 install "ipython[notebook]"
+cd /tmp/
 
 # kerberos setup copied from lxplus
 curl https://gist.githubusercontent.com/betatim/7c6795ebea7b9761f1a8/raw/b04c5af7a6810a9cc8f6f76129796d173acb4b84/krb5.conf > krb5.conf
