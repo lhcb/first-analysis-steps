@@ -21,6 +21,9 @@ make configure
 make all doc
 make install install-doc
 
+# Install editors
+yum install -y emacs
+
 # kerberos setup copied from lxplus
 curl https://gist.githubusercontent.com/betatim/7c6795ebea7b9761f1a8/raw/b04c5af7a6810a9cc8f6f76129796d173acb4b84/krb5.conf > krb5.conf
 cp /tmp/krb5.conf /etc/krb5.conf
