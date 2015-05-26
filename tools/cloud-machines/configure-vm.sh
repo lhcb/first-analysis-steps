@@ -27,6 +27,10 @@ yum install -y xeyes
 yum install -y xauth
 
 # Jupyterhub
+# /usr/local/bin is not in the PATH by default
+# to start the hub you need to specify the full
+# path: /usr/local/bin/jupyterhub when
+# logging in as root
 export PATH="/usr/local/bin:$PATH"
 yum install -y npm
 yum install -y sqlite-devel
@@ -43,6 +47,8 @@ npm install -g configurable-http-proxy
 pip3.4 install -r requirements.txt
 pip3.4 install .
 pip3.4 install "ipython[notebook]"
+# installs the anaconda python2 kernel
+ipython kernelspec install-self
 cd /tmp/
 
 # kerberos setup copied from lxplus
