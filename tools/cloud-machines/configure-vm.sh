@@ -25,6 +25,11 @@ make install install-doc
 curl https://gist.githubusercontent.com/betatim/7c6795ebea7b9761f1a8/raw/b04c5af7a6810a9cc8f6f76129796d173acb4b84/krb5.conf > krb5.conf
 cp /tmp/krb5.conf /etc/krb5.conf
 
+# Install grid security stuff
+curl http://thead.web.cern.ch/thead/grid-sec.tar.gz > grid-sec.tar.gz
+tar xzf grid-sec.tar.gz
+cp -a grid-security /etc/
+
 # automate sourcing of LbLogin and setting up of anaconda path
 curl https://gist.githubusercontent.com/betatim/476078b01443fa3a1885/raw/e90b6a7f12391a9d7e312a06d1cca23af39def84/gistfile1.txt > /etc/profile.d/zzz-starterkit.sh
 
@@ -35,6 +40,7 @@ addusercern ibabusch
 addusercern apearce
 addusercern apuignav
 addusercern raaij
+addusercern sneubert
 # Participants
 addusercern rquaglia
 addusercern amauri
