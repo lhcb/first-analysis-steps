@@ -65,6 +65,7 @@ cp -a grid-security /etc/
 
 # automate sourcing of LbLogin and setting up of anaconda path
 curl https://gist.githubusercontent.com/betatim/476078b01443fa3a1885/raw/e90b6a7f12391a9d7e312a06d1cca23af39def84/gistfile1.txt > /etc/profile.d/zzz-starterkit.sh
+curl https://gist.githubusercontent.com/betatim/e08dbf20b8ab77b4e22d/raw/3085e7444ee2fc0603e7a3c902bebe45714d3545/zzz-starterkit.csh > /etc/profile.d/zzz-starterkit.csh
 
 # Install extra users
 addusercern thead
