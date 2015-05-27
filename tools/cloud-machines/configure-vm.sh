@@ -21,6 +21,9 @@ make configure
 make -j5 all doc
 make install install-doc
 
+# need readline5 for eos
+yum install -y compat-readline5
+
 # Install editors
 yum install -y emacs
 yum install -y xeyes
