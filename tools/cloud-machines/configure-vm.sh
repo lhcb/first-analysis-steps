@@ -75,6 +75,7 @@ addusercern apearce
 addusercern apuignav
 addusercern raaij
 addusercern sneubert
+addusercern jadevrie
 # Participants
 addusercern rquaglia
 addusercern amauri
