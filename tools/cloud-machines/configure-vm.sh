@@ -53,6 +53,9 @@ pip3.4 install .
 pip3.4 install "ipython[notebook]"
 # installs the anaconda python2 kernel
 ipython kernelspec install-self
+# modify firewall to allow port 8000
+# need to redo this every reboot
+iptables -I INPUT 7 -p tcp --dport 8000 -j ACCEPT
 cd /tmp/
 
 # kerberos setup copied from lxplus
