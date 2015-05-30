@@ -24,10 +24,11 @@ make install install-doc
 # need readline5 for eos
 yum install -y compat-readline5
 
-# Install editors
+# Install editors and stuff
 yum install -y emacs
 yum install -y xeyes
 yum install -y xauth
+yum install -y screen
 
 # Jupyterhub
 # /usr/local/bin is not in the PATH by default
