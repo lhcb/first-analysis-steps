@@ -114,6 +114,7 @@ addusercern vcogoni
 addusercern lan
 addusercern cvacca
 addusercern dmitzel
+addusercern mfiorin2
 
 # Make sure the clock doens't drift
 service ntpd start
