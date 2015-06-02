@@ -36,7 +36,7 @@ To understand what we can do with LoKi functors, we will start with exploring a 
 Open the DST and get the first candidate in the `D2hhCompleteEventPromptDst2D2RS` line:
 
 ```python
-cands = evt['/Event/AllStreams/Phys/D2hhCompleteEventPromptDst2D2RSLine/Particles']
+cands = get('AllStreams/Phys/D2hhCompleteEventPromptDst2D2RSLine/Particles')
 cand = cands[0]
 ```
 
@@ -47,14 +47,6 @@ from LoKiPhys.decorators import PT, MM
 print PT(cand)
 print MM(cand)
 ```
-
-You will see an error when loading the functors
-```
-LoKiSvc.REPORT      ERROR LoKi::AuxDesktopBase: 	loadDesktop(): unable to load IPhysDesktop! StatusCode=FAILURE
-LoKiSvc.REPORT      ERROR The   ERROR message is suppressed : 'LoKi::AuxDesktopBase: 	loadDesktop(): unable to load IPhysDesktop!' StatusCode=FAILURE
-```
-This is related to the fact that some functors need to run in the `DaVinci` scope and they are all loaded in the `LoKiPhys.decorators` module, but it's harmless in the examples we will use.
-Additionally, if the import is made *before* the instantiation of the `ApplicationMgr`, there will be no warnings.
 
 If we want to get the properties of the B vertex, for example its $\chi^2$, we need to pass the correct object to the LoKi functors
 
@@ -75,8 +67,8 @@ The calculation of some of the properties, such as the IP or DIRA, require the k
 In `GaudPython`, we can get the PVs ourselves.
 
 ```python
-pv_finder_tool = appMgr.toolsvc().create('GenericParticle2PVRelator<_p2PVWithIPChi2, OfflineDistanceCalculatorName>/P2PVWithIPChi2', interface='IRelatedPVFinder')
-pvs = evt['/Event/AllStreams/Rec/Vertex/Primary']
+pv_finder_tool = gaudi.toolsvc().create('GenericParticle2PVRelator<_p2PVWithIPChi2, OfflineDistanceCalculatorName>/P2PVWithIPChi2', interface='IRelatedPVFinder')
+pvs = get("Rec/Vertex/Primary")
 best_pv = pv_finder_tool.relatedPV(cand, pvs)
 from LoKiPhys.decorators import DIRA
 print DIRA(best_pv)(cand)
