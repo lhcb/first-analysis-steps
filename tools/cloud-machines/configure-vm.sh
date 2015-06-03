@@ -29,6 +29,7 @@ yum install -y emacs
 yum install -y xeyes
 yum install -y xauth
 yum install -y screen
+yum install -y git-svn
 
 # Jupyterhub
 # /usr/local/bin is not in the PATH by default
