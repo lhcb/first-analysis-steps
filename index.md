@@ -38,15 +38,9 @@ If you have any problems or questions, you can [send an email to
 5.  [TupleTools and branches](12-add-tupletools.html)
 8.  [Switch to a new stripping (20 -> 21) for one line in MC](14-rerun-stripping.html)
 11. [Replace a mass hypothesis](17-switch-mass-hypo.html)
-12. TisTos and what it all means
-13. TupleTools for TISTOS'ing
-14. (Caveats for TISTOS'ing)
-14. More on the HLT?
 22. [How do I use DecayTreeFitter?](22-decay-tree-fitter.html)
-18. Other things one can do with DTF
 19. [Asking good questions](26-asking-questions.html)
 19. [Developing the LHCb Software](16-lhcb-dev.html)
-20. Where to get help
 21. [Contribute to this lesson](27-contributing.html)
 22. [Install party](32-install-party.html)
 
