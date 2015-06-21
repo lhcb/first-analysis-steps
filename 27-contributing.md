@@ -10,6 +10,8 @@ minutes: 10
 > * How to look at the source of these lessons
 > * How to modify a lesson
 
+Please help me contribute to these lessons.
+
 These lessons are not really about software, they are about people. If
 you have followed along until this point you are more than qualified
 to edit the lessons. There are probably several mistakes in these
