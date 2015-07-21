@@ -53,9 +53,9 @@ The way the `DecayTreeTuple.Decay` is written in in our [minimal DaVinci job](08
 dtt.Decay = '[D*(2010)+ -> (D0 -> K- pi+) pi+]CC'
 ```
 
-means that the configured `TupleTools` will only run on the head of the decay chain, that is, the D\*.
+means that the configured `TupleTools` will only run on the head of the decay chain, that is, the `D*`.
 In order to select the particles for which we want the information stored, we need to mark them with a `^` symbol in the decay descriptor.
-For example, if we want to fill the information of the D0 and all its children, we would modify the `dtt` to look like this:
+For example, if we want to fill the information of the `D0` and its children, as well as the soft `pi+`, we would modify the above line to look like this:
 
 ```python
 dtt.Decay = '[D*(2010)+ -> ^(D0 -> ^K- ^pi+) ^pi+]CC'
@@ -75,8 +75,8 @@ dtt.addBranches({'Dstar' : '[D*(2010)+ -> (D0 -> K- pi+) pi+]CC',
                  'pisoft': '[D*(2010)+ -> (D0 -> K- pi+) ^pi+]CC'})
 ```
 
-Note that in order to use branches, we have to make sure that all particles are marked in the main decay descriptor (`dtt.Decay`).
-DaVinci will ignore branches for particles that are not marked in the main decay descriptor!
+Note that in order to use branches, we have to make sure that all particles we want to use are marked in the main decay descriptor (`dtt.Decay`).
+DaVinci will ignore branches for particles that have not been marked in `dtt.Decay`!
 
 Once the branches have been configured, they can be accessed as `dtt.PARTICLENAME`and `TupleTools` can be added as discussed before.
 For example, if we want to store the proper time information of the D0, we would do
