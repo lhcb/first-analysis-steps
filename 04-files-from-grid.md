@@ -46,7 +46,7 @@ Again this will take a while but afterwards you should have a file called `00035
 
 Since those tuples tend to be quite large, you might want to use your AFS work directory instead of your AFS user directory to store files.
 
-> ## Alternative: read the remote files instead of downloading them {.callout}
+> ## Alternative: read files remotely instead of downloading them {.callout}
 > To avoid filling up your AFS quota with dst files, you can also pass Gaudi an XML catalog such that it can access them remotely.
 >
 > First generate the XML catalog with
