@@ -23,5 +23,9 @@ DaVinci().Lumi = not DaVinci().Simulation
 DaVinci().EvtMax = -1
 
 # Use input data from the bookkeeping query with XML catalog
-importOptions("MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py")
-FileCatalog().Catalogs = [ "xmlcatalog_file:MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.xml" ]
+importOptions("MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_"
+    "Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS"
+    ".DST.py")
+FileCatalog().Catalogs = ["xmlcatalog_file:MC_2012_27163003_"
+    "Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_"
+    "Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.xml"]
