@@ -38,7 +38,8 @@ MassStorageFile = {'fileExtensions': [''],
 
 The line should look very similar to this already, the only thing that
 needs changing is the `path` entry. You should change it to your EOS home directory
-which is `/eos/lhcb/user/a/another` if your username is `another`.
+which is `/eos/lhcb/user/a/another` if your username is `another`. It is also stored
+in the `EOS_HOME` environment variable.
 
 > ## Automatically transfer files {.callout}
 >
@@ -163,3 +164,8 @@ your EOS directory with `eosumount ~/eos`.
 > ```python
 > TFile::Open('root://eoslhcb.cern.ch//eos/lhcb/user/a/another/starterkit/myfavouritefile.root')
 > ```
+> This can also be used as the target of an hadd call:
+> ```bash
+> hadd root://eoslhcb.cern.ch//eos/lhcb/user/a/another/starterkit/myfavouritefile.root /lots/of/root/files.root
+> ```
+
