@@ -76,39 +76,39 @@ It works similar to `lb-run`, without the need to specify a package and version:
 
 > ## What if getpack asks for my password 1000 times? {.callout}
 > `getpack` might ask you for your password several times.
-> To avoid this, you need to properly configure your `ssh` following the
+> To avoid this, you need to configure your `ssh` following the
 > instructions [here](http://information-technology.web.cern.ch/book/how-start-working-svn/accessing-svn-repository#accessing-sshlinux).
 > The summary of the instructions follows:
 >
 >  1. Generate `ssh keys` (`ssh-keygen -t rsa` or `ssh-keygen -t dsa`).
 >  2. Copy your public `ssh` key to lxplus (`scp ~/.ssh/*.pub USERNAME@lxplus.cern.ch:~`).
 >  3. Execute the `ssh` setup script `/afs/cern.ch/project/svn/public/bin/set_ssh`.
->  4. Setup your `.ssh/config` file with
+>  4. Setup your local `.ssh/config` file with
 > 
-> ```
-> Host lxplus.cern.ch lxplus 
-> Protocol 2 
-> PubkeyAuthentication no 
-> PasswordAuthentication yes
-> 
-> Host svn.cern.ch svn 
-> GSSAPIAuthentication yes 
-> GSSAPIDelegateCredentials yes 
-> Protocol 2 
-> ForwardX11 no
-> ```
->  Now check that you can login to `svn.cern.ch` without password (you will immediately get logged out).
+>     ```
+>     Host lxplus.cern.ch lxplus 
+>     Protocol 2 
+>     PubkeyAuthentication no 
+>     PasswordAuthentication yes
+>     
+>     Host svn.cern.ch svn 
+>     GSSAPIAuthentication yes 
+>     GSSAPIDelegateCredentials yes 
+>     Protocol 2 
+>     ForwardX11 no
+>     ```
+>  5. Now check that you can login to `svn.cern.ch` without password (you will immediately get logged out).
 >
->```
-> ******************************************************************************* 			
-> *                                                                             
-> *	Reminder: You have agreed to comply with the CERN computing rules         
-> *				http://cern.ch/ComputingRules                                 
-> *			                                                                  
-> *******************************************************************************
-> SVN server - only svn allowed, interactive login disabled 
-> Connection to svn closed.
-> ```
+>     ```
+>     ******************************************************************************* 			
+>     *                                                                             
+>     *	Reminder: You have agreed to comply with the CERN computing rules         
+>     *				http://cern.ch/ComputingRules                                 
+>     *			                                                                  
+>     *******************************************************************************
+>     SVN server - only svn allowed, interactive login disabled 
+>     Connection to svn closed.
+>     ```
 >
 > And you're set!
 
