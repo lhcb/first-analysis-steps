@@ -75,10 +75,17 @@ It works similar to `lb-run`, without the need to specify a package and version:
 ```
 
 > ## What if getpack asks for my password 1000 times? {.callout}
-> `getpack` might ask you for your password several times.
-> To avoid this, you need to configure your `ssh` following the
-> instructions [here](http://information-technology.web.cern.ch/book/how-start-working-svn/accessing-svn-repository#accessing-sshlinux).
-> The summary of the instructions follows:
+> 
+> In general, since your home directoy on lxplus is on `afs`, you need a valid `afs`
+> token to access it. Such a token can only be obtained when logging in with password
+> or with a kerberos-based authentication, and not when using public keys.
+> Since an `afs` token is not needed when communicating with the `svn` server,
+> public key-based authentication can be used in this particular case.
+>
+> To avoid `getpack` asking you for your password several times, you need to
+> configure your `ssh` following the instructions
+> [here](http://information-technology.web.cern.ch/book/how-start-working-svn/accessing-svn-repository#accessing-sshlinux).
+> The summary of these instructions follows:
 >
 >  1. Generate `ssh keys` (`ssh-keygen -t rsa` or `ssh-keygen -t dsa`).
 >  2. Copy your public `ssh` key to lxplus (`scp ~/.ssh/*.pub USERNAME@lxplus.cern.ch:~`).
@@ -92,6 +99,7 @@ It works similar to `lb-run`, without the need to specify a package and version:
 >     PasswordAuthentication yes
 >     
 >     Host svn.cern.ch svn 
+>     PubkeyAuthentication yes
 >     GSSAPIAuthentication yes 
 >     GSSAPIDelegateCredentials yes 
 >     Protocol 2 
