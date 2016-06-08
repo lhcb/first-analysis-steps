@@ -150,7 +150,7 @@ def find_tracks(particle):
         if proto:
             track = proto.track()
             if track:
-                tracks.append(particle.data())
+                tracks.append(particle)
     else:
         for child in particle.daughters():
             tracks.extend(find_tracks(child))
