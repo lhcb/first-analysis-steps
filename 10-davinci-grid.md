@@ -81,7 +81,7 @@ console. This will list all of your jobs, their status, what kind of
 application they are and more.
 
 You can get more detailed information about your job by typing
-`jobs($jobid)`. Replacing `$jobid` with the `id` of the job you are
+`jobs($jobid)`, replacing `$jobid` with the `id` of the job you are
 interested in. For concretness we will assume you are interested in
 a job with jobid 787 in this example.
 
