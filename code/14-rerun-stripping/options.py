@@ -71,5 +71,5 @@ DaVinci().EvtMax = 5000
 
 # Use the local input data
 IOHelper().inputFiles([
-    './00035742_00000001_1.allstreams.dst'
+    './00035742_00000002_1.allstreams.dst'
 ], clear=True)

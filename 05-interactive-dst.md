@@ -22,7 +22,7 @@ is not working as expected.
 
 The file we [downloaded from the grid](04-files-from-grid.html)
 contains simulated data, with stripping and trigger decisions
-and so on. Here we assumed the file you downloaded is called `00035742_00000001_1.allstreams.dst`.
+and so on. Here we assumed the file you downloaded is called `00035742_00000002_1.allstreams.dst`.
 To take a look at the contents of the TES, we need to write a small
 Python file:
 
@@ -51,7 +51,7 @@ Place this into a file called `first.py` and run the following
 command in a new terminal:
 
 ```bash
-$ lb-run DaVinci v36r6 ipython -i first.py 00035742_00000001_1.allstreams.dst
+$ lb-run DaVinci v36r6 ipython -i first.py 00035742_00000002_1.allstreams.dst
 ```
 
 This will open the DST and print out some of the TES locations
@@ -98,7 +98,7 @@ def nodes(evt, node=None):
 ```
 
 The easiest way to use it is to add it to your `first.py` script
-and re-run it with `ipython -i first.py 00035742_00000001_1.allstreams.dst`.
+and re-run it with `ipython -i first.py 00035742_00000002_1.allstreams.dst`.
 This will list a large number of TES locations, but even so there
 are some which you have to know about. Another oddity is that some
 locations are "packed", for example: `/Event/AllStreams/pPhys/Particles`.
@@ -192,7 +192,7 @@ functors](06-loki-functors.html)!
 > For example, to explore the `DST` we could have simply done:
 >
 > ```
-> lb-run Bender bender 00035742_00000001_1.allstreams.dst
+> lb-run Bender bender 00035742_00000002_1.allstreams.dst
 > ```
 >
 > This leaves us in a prompt in which we can proceed as discussed in this 
