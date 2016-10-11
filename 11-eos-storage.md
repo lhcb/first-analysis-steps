@@ -53,6 +53,9 @@ element on the Grid. For files which you do not plan to work with
 interactively and instead feed into a different grid job it makes
 sense to leave them on the grid.
 
+Note that EOS *IS* a grid storage (the CERN one), but your personnal space is just
+in a different subdirectory than the files "on the grid" managed by DIRAC.
+
 ```python
 DiracFile = {'fileExtensions': ['*.dst'],
              'uploadOptions': {},
@@ -112,6 +115,9 @@ become available.
 Once your job has completed and the files have been copied to
 EOS by `ganga` you can access them from your terminal by mounting
 your EOS area.
+
+Important: mounting eos is discouraged by the LHCb data management team,
+and no support will be provided by them for problems/questions related to it.
 
 On `lxplus` you can mount EOS like this:
 
