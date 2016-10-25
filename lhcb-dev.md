@@ -16,7 +16,7 @@ This lesson introduces you to two commands:
 If you want to make changes to a software package, you will need to set up a development environment. `lb-dev` is your friend here:
 
 ```bash
-lb-dev --name DaVinciDev DaVinci v40r2
+lb-dev --name DaVinciDev DaVinci v41r2
 ```
 
 The output should look similar to this:
@@ -27,20 +27,20 @@ Successfully created the local project DaVinciDev in .
 To start working:
 
   > cd ./DaVinciDev
-  > getpack MyPackage vXrY
+  > git lb-use DaVinci
+  > git lb-checkout DaVinci/vXrY MyPackage
 
 then
 
   > make
   > make test
-  > make QMTestSummary
 
-and optionally
+and optionally (CMake only)
 
   > make install
 
-You can customize the configuration by editing the files 'CMakeLists.txt'
-(see http://cern.ch/gaudi/CMake for details).
+You can customize the configuration by editing the files 'build.conf' and
+'CMakeLists.txt' (see http://cern.ch/gaudi/CMake for details).
 ```
 
 Follow those instructions and once you've compiled your software run
@@ -102,7 +102,7 @@ There is a page for each project, lists of projects can be found here:
 
 Another useful tool available on lxplus machines is `Lbglimpse`. It allows you to search for a given string in the source code of LHCb software.
 ```bash
-Lbglimpse "PVRefitter" DaVinci v40r2
+Lbglimpse "PVRefitter" DaVinci v41r2
 ```
 It works with every LHCb project and released version.
 
