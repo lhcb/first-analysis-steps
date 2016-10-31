@@ -142,7 +142,7 @@ drwxr-xr-x. 1 daemon root    442304842811 Oct 26 10:35 i
 drwxr-xr-x. 1 daemon root   8360665587286 Oct 30 13:46 j
 ```
 
-If you list the contents of your `/eos` directory you should see
+If you list the contents of the `/eos` directory you should see
 
 ```output
 lhcb ship user
