@@ -43,6 +43,14 @@ You can customize the configuration by editing the files 'build.conf' and
 'CMakeLists.txt' (see http://cern.ch/gaudi/CMake for details).
 ```
 
+> ## `lb-dev` created local projects are Git repositories {.callout}
+> When `lb-dev` creates the local project directory and create the initial files
+> there, it also calls `git init` and commits to the local Git repository the
+> first version of the files (try with `git log` in there).
+>
+> You can then use git to keep track of your development, and share your code
+> with others (for example with a [new project in gitlab.cern.ch](https://gitlab.cern.ch/projects/new)).
+
 Follow those instructions and once you've compiled your software run
 
 ```bash
