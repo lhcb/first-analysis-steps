@@ -35,7 +35,7 @@ This is a list of `DiracFile`, the Ganga object for files stored on the grid. We
 Ganga In [5]: j.inputdata[0].accessURL()
 Ganga Out [5]: ['root://bw32-4.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/SEMILEPTONIC.DST/00051179/0000/00051179_00006978_1.semileptonic.dst']
 ```
-The returned path can be used by Bender to explore the contents of the DST.
+The returned path can be used by Bender to explore the contents of the DST, as in the [Interactively exploring a DST](interactive-dst.html) lesson.
 
 In the previous lesson we looked at the location of the ouput with `job(782).outputdir`. This location points us to the `gangadir` where ganga stores information about the jobs and the output. If we have lots of jobs with large files the file system where the gangadir is located will quickly fill up.
 
@@ -48,7 +48,9 @@ To avoid filling up the filespace it is wise to put the large files produced by 
 ```python
 j.outputfiles = [DiracFile('*.root'), LocalFile('stdout')]
 ```
-The `DiracFile` will be stored in your user area on the grid (with up to 2TB personal capacity) from where you can access it with the `accessURL()` function as before. The wildcard means that any root file produced by your job will stay on the grid. `LocalFile` downloads the file to your `gangadir`, in this case the one called `stdout`. In general you are encouraged to keep your large files on the grid to avoid moving large amounts of data around through your work area.
+The `DiracFile` will be stored in your user area on the grid (with up to 2TB personal capacity) from where you can access it with the `accessURL()` function as before. The wildcard means that any root file produced by your job will stay on the grid. `LocalFile` downloads the file to your `gangadir`, in this case the one called `stdout`.
+
+Small files are downloaded as standard: `.root`, logfiles etc. Files that are expected to be large which have extensions .dst etc are by default kept on the grid as Dirac files. In general you are encouraged to keep your large files on the grid to avoid moving large amounts of data around through your work area.
 
 
 > ## Getting help with ganga {.callout}
