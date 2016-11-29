@@ -16,12 +16,11 @@ space on a set of hard drives called the [EOS
 service](http://information-technology.web.cern.ch/services/eos-service) and
 a grid storage quota of 2TB.
 
-To retrieve a job outputfile, one can use three types of files :  
+To retrieve a job outputfile, one can use three types of files:  
 - `LocalFile`: the standard one with the output file directly downloaded to
 the `gangadir`.  
 - `DiracFile`: the output file is stored directly on the grid and be accessed
 through the XRootD protocol.  
->>>>>>> Move to MassStorageFile to DiracFile : first commit
 
 In this lesson, we will focus on the use of `DiracFile` in `ganga` to manage big
 output files.
