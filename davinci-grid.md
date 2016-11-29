@@ -31,12 +31,12 @@ To create your first `ganga` job type the following:
 
 ```python
 j = Job(name='First ganga job')
-myApp = prepareGaudiExec('DaVinci','v41r2')
-myApp.options = ['code/davinci/ntuple_options.py']
+myApp = prepareGaudiExec('DaVinci','v41r2', myPath='.')
 j.application = myApp
+j.application.options = ['code/davinci-grid/ntuple_options_grid.py']
 j.application.readInputData('data/MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py')
 j.backend = Dirac()
-j.submit()
+j.outputfiles = [LocalFile('DVntuple.root')]
 ```
 
 This will create a `Job` object that will execute `DaVinci` configured 
@@ -45,6 +45,19 @@ backend called `Dirac`, which is "the grid". Instead of specifying the
 files to process as part of the options file you have now to tell the
 `Job` about it. This allows `ganga` to split your job up,
 processing different files simultaneously.
+
+> ## DaVinciDev folder {.callout}
+>
+> When you create a job using `prepareGaudiExec('DaVinci','v41r2', myPath='.')`
+> you get the following message:
+> ```
+> INFO     Set up App Env at: ./DaVinciDev_v41r2
+> ```
+> `ganga` has created a folder with a local copy of the DaVinci v41r2 release.
+> The content of it will be sent to the grid to ensure your jobs runs with 
+> exactly this configuration.
+> We will use this folder for the following jobs and you will learn more about
+> this in the [Developing LHCb Software](lhcb-dev.html) lesson.
 
 Now you have created your first job, however it has not started
 running yet. To submit it type `j.submit()`. Now `ganga` will do the
@@ -60,11 +73,13 @@ Place the following in a file called [`first-job.py`](code/davinci-grid/first-jo
 
 ```python
 j = Job(name='First ganga job')
-myApp = prepareGaudiExec('DaVinci','v41r2')
-myApp.options = ['code/davinci/ntuple_options.py']
+myApp = GaudiExec()
+myApp.directory = "./DaVinciDev_v41r2"
 j.application = myApp
+j.application.options = ['code/davinci-grid/ntuple_options_grid.py']
 j.application.readInputData('data/MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py')
 j.backend = Dirac()
+j.outputfiles = [LocalFile('DVntuple.root')]
 j.submit()
 ```
 
