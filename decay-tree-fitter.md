@@ -51,7 +51,7 @@ dtt.Dstar.ConsD.UpdateDaughters = True
 ```
 
 > ## DecayTreeFitter and LoKi functors {.callout}
-> Alternatively, many of the operations described above can done by using the `DecayTreeFitter` via LoKi functors, see the [second-analysis-steps](https://lhcb.github.io/second-analysis-steps/) for details.
+> Alternatively, many of the operations described above can done by using the `DecayTreeFitter` via LoKi functors, see the [DaVinci tutorial](https://twiki.cern.ch/twiki/bin/view/LHCb/DaVinciTutorial9b) for details.
 
 > ## Which constraints to apply {.callout}
 > It is important to be aware what assumptions you bake into your ntuple. For example, after you require the vertex constraint you must be careful if using the `IPCHI2_OWNPV`, since the particle you are looking at is *forced* to point to the PV. Which constraints make most sense for you depends on the questions you want to ask in your analysis, so ask your supervisor/working group in case of doubt.
