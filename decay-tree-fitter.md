@@ -68,7 +68,7 @@ Plotting the raw mass of the D* (without the fit) `Dstar_M` you should see a bro
 <img src="./img/DstarRaw.png" alt="Dstar raw" style="width: 500px;"/>
 
 > ## Which mass variable to use {.callout}
-> In many ntuples you also find a mass variable called `_MM`. This confusingly refers to measured mass. However, it is usually better to use `_M`. `_MM` is the sum of the 4-momenta of the final state particles at the fitted vertex position, but not the result of the actual vertex fit.
+> In many ntuples you also find a mass variable called `_MM`. This confusingly refers to measured mass. However, it is usually better to use `_M`. `_MM` is the sum of the 4-momenta of the final state particles extrapolated back to the fitted vertex position, but not the result of the actual vertex fit.
 
 
 Now let us look at the refitted mass of the D*, with the D0 constrained to its nominal mass. It is stored in the variable `Dstar_ConsD_M`. If you plot this you will note that some values are unphysical. So, let's restrict the range we look at to something that makes sense.
