@@ -47,7 +47,7 @@ When using the `DecayTreeFitter` in a `DecayTreeTuple`, all the variables create
 If the daughters are not stable particles and decay further, the daughters of the daughters have no new variables associated to them by default.
 Since in many cases this information might be useful, there is an option to store the information from those tracks
 ```python
-dtt.Dstar.ConsD.UpdateDaughters = Truedecay-tree-fitter.md
+dtt.Dstar.ConsD.UpdateDaughters = True
 ```
 
 > ## DecayTreeFitter and LoKi functors {.callout}
