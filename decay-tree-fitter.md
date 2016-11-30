@@ -47,7 +47,7 @@ When using the `DecayTreeFitter` in a `DecayTreeTuple`, all the variables create
 If the daughters are not stable particles and decay further, the daughters of the daughters have no new variables associated to them by default.
 Since in many cases this information might be useful, there is an option to store the information from those tracks
 ```python
-dtt.Dstar.ConsD.UpdateDaughters = True
+dtt.Dstar.ConsD.UpdateDaughters = Truedecay-tree-fitter.md
 ```
 
 > ## DecayTreeFitter and LoKi functors {.callout}
@@ -63,9 +63,13 @@ root -l DVntuple.root
 TupleDstToD0pi_D0ToKpi->cd()
 DecayTree->StartViewer()
 ```
-Plotting the raw mass of the D* (without the fit) `Dstar_MM` you should see a broad signal around 2 GeV:
+Plotting the raw mass of the D* (without the fit) `Dstar_M` you should see a broad signal around 2 GeV:
 
 <img src="./img/DstarRaw.png" alt="Dstar raw" style="width: 500px;"/>
+
+> ## Which mass variable to use {.callout}
+> In many ntuples you also find a mass variable called `_MM`. This confusingly refers to measured mass. However, it is usually better to use `_M`. `_MM` is the sum of the 4-momenta of the final state particles at the fitted vertex position, but not the result of the actual vertex fit.
+
 
 Now let us look at the refitted mass of the D*, with the D0 constrained to its nominal mass. It is stored in the variable `Dstar_ConsD_M`. If you plot this you will note that some values are unphysical. So, let's restrict the range we look at to something that makes sense.
 

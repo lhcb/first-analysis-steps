@@ -52,9 +52,9 @@ We can now try to get very simple properties of the $D^{*+}$ candidate, such as
 its transverse momentum and measured mass.
 
 ```python
-from LoKiPhys.decorators import PT, MM
+from LoKiPhys.decorators import PT, M
 print PT(cand)
-print MM(cand)
+print M(cand)
 ```
 
 You will see an error when loading the functors:
