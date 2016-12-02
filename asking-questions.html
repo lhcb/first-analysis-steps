@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LHCb Starterkit: First Steps in LHCb</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-63818884-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://lhcb.github.io/first-analysis-steps/">
+          <img src="img/new_starterkit.png" height="150" alt="LHCb Starterkit">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="title">First Steps in LHCb</h1>
+          <h2 class="subtitle">Asking good questions</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>How to ask a good question</li>
+<li>Where to ask questions</li>
+</ul>
+</div>
+</div>
+<p>Eventually you will get stuck when trying to do something. This lesson is about how to get help with getting unstuck.</p>
+<p>People love helping others. Below some tips on how to improve your chances of getting a good answer. The answers you get will depend very much on the way you ask your question.</p>
+<div id="mailing-lists" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Mailing lists</h2>
+</div>
+<div class="panel-body">
+<p>For LHCb specific questions your best bet are the LHCb mailing lists like: &lt;<script type="text/javascript">
+<!--
+h='&#x63;&#x65;&#114;&#110;&#46;&#x63;&#104;';a='&#64;';n='&#108;&#104;&#x63;&#98;&#x2d;&#100;&#x69;&#x73;&#116;&#114;&#x69;&#98;&#x75;&#116;&#x65;&#100;&#x2d;&#x61;&#110;&#x61;&#108;&#x79;&#x73;&#x69;&#x73;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#108;&#104;&#x63;&#98;&#x2d;&#100;&#x69;&#x73;&#116;&#114;&#x69;&#98;&#x75;&#116;&#x65;&#100;&#x2d;&#x61;&#110;&#x61;&#108;&#x79;&#x73;&#x69;&#x73;&#32;&#x61;&#116;&#32;&#x63;&#x65;&#114;&#110;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#104;</noscript>&gt;, &lt;<script type="text/javascript">
+<!--
+h='&#x63;&#x65;&#114;&#110;&#46;&#x63;&#104;';a='&#64;';n='&#108;&#104;&#x63;&#98;&#x2d;&#100;&#x61;&#118;&#x69;&#110;&#x63;&#x69;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#108;&#104;&#x63;&#98;&#x2d;&#100;&#x61;&#118;&#x69;&#110;&#x63;&#x69;&#32;&#x61;&#116;&#32;&#x63;&#x65;&#114;&#110;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#104;</noscript>&gt;, and &lt;<script type="text/javascript">
+<!--
+h='&#x63;&#x65;&#114;&#110;&#46;&#x63;&#104;';a='&#64;';n='&#108;&#104;&#x63;&#98;&#x2d;&#x73;&#x6f;&#102;&#116;&#x2d;&#116;&#x61;&#108;&#x6b;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'" clas'+'s="em' + 'ail">'+e+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#108;&#104;&#x63;&#98;&#x2d;&#x73;&#x6f;&#102;&#116;&#x2d;&#116;&#x61;&#108;&#x6b;&#32;&#x61;&#116;&#32;&#x63;&#x65;&#114;&#110;&#32;&#100;&#x6f;&#116;&#32;&#x63;&#104;</noscript>&gt;. For more general questions <a href="http://stackoverflow.com/">Stack overflow</a> and <a href="http://google.com">google</a> are good starting places.</p>
+</div>
+</div>
+<div id="lhcb-qa" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span><a href="https://lhcbqa.web.cern.ch/lhcbqa/">LHCb Q&amp;A</a></h2>
+</div>
+<div class="panel-body">
+<p>An experimental alternative to the mailing lists is the <a href="https://lhcbqa.web.cern.ch/lhcbqa/">LHCb Questions and Answers website</a>. It works like <a href="https://stackoverflow.com/">Stack overflow</a>, but focuses on LHCb-specific questions. You can post your question there and you should usually receive an answer within a few hours or days.</p>
+</div>
+</div>
+<p>The title/subject is the first thing people will see of your question. If it is not interesting, they will not read the rest. If you are struggling with a good title, write it last! Having written the rest of your email will give you a better idea of what the one sentence summary is.</p>
+<div id="grammar-and-spelling" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Grammar and spelling</h2>
+</div>
+<div class="panel-body">
+<p>This is a no brainer. You want to make a good impression: someone who made an effort and values other people's time. If you aren't comfortable with writing in English, ask a friend to proof-read your email for you.</p>
+</div>
+</div>
+<p>Most people like hard problems and thought-provoking questions. So give them an interesting question to chew on, and they will love it.</p>
+<p>Despite this, mailing lists have a reputation for a hostile tone and an air of arrogance. People are hostile towards people who seem unwilling to think for themselves or did not do their homework before asking their question.</p>
+<div id="volunteers" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Volunteers</h2>
+</div>
+<div class="panel-body">
+<p>Remember people are volunteering their time to help you. They have busy lives and there are a lot of questions. So they filter ruthlessly. Make sure your question is the most interesting one out there, and people will choose to help you.</p>
+</div>
+</div>
+<p>It is OK that you are not technically competent, what you need to show is that you have the skills to become competent: alert, thoughtful, observant, willing to be an active partner in developing a solution.</p>
+<p>Before posting your question try:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://e-groups.cern.ch/e-groups/EgroupsSearchForm.do">Searching the archives</a> of the forum/mailing list</li>
+<li>Searching the web</li>
+<li>Finding the answer in a FAQ</li>
+<li>Finding the answer by experimenting</li>
+<li>Asking a skilled friend</li>
+<li>Or reading the code</li>
+</ol>
+<p>When asking your question, mention which of these steps you have tried. It will help demonstrate that you are not lazy and put in some effort. If you learned something from trying this, mention it!</p>
+<p>The beginning of your email should explain what you are trying to do and why, as well as where the problem occurs. Often it is useful to describe the big goal, and not the particular step you are stuck with.</p>
+<p>Help others reproduce your problem by including the necessary details. If the problem is with code you wrote, include it. However do not post all of your program. Try and make a minimal example that demonstrates the problem. Stack Overflow has a good guide on creating a <a href="http://stackoverflow.com/help/mcve">minimal, complete, and verifiable example</a>.</p>
+<p>You have to be precise. Do not simply dump all possible information that might be relevant. Vague questions receive vague answers. Being precise is useful for at least three reasons. One: being seen to invest effort in simplifying the question makes it more likely you'll get an answer, Two: simplifying the question makes it more likely you'll get a useful answer. Three: In the process of refining your bug report, you may develop a fix or workaround yourself.</p>
+<p>When people post replies or questions about your problem, follow them up. If you manage to solve your problem, tell the mailing list.</p>
+<div id="love-letters-also-known-as-private-replies" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Love letters also known as private replies</h2>
+</div>
+<div class="panel-body">
+<p>Please do not reply to questions privately. We are trying to solve a technical issue, not writing lover letters. If you take the discussion off the mailing list future generations will just see the question and no solution. You will also miss out on help from others that did not chime in to your first question but might be able to help later on.</p>
+</div>
+</div>
+<p>Once the problem is solved post a final message saying that the problem is solved and what the solution is.</p>
+<p>A lot of the material in this topic was taken from the following, excellent guides to asking good questions:</p>
+<ul>
+<li><a href="http://www.catb.org/esr/faqs/smart-questions.html">How To Ask Questions The Smart Way</a> by Eric Raymond</li>
+<li><a href="http://codeblog.jonskeet.uk/2010/08/29/writing-the-perfect-question/">Writing the perfect question</a> by Jon Skeet</li>
+<li><a href="http://stackoverflow.com/help/how-to-ask">How do I ask a good question?</a> on stack overflow</li>
+</ul>
+        </div>
+      </div>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/lhcb/first-analysis-steps">Source</a>
+        <a class="label swc-blue-bg" href="mailto:lhcb-starterkit@cern.ch">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script>
+      // Go KaTeX go!
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>

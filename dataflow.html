@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LHCb Starterkit: First Steps in LHCb</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-63818884-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://lhcb.github.io/first-analysis-steps/">
+          <img src="img/new_starterkit.png" height="150" alt="LHCb Starterkit">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="title">First Steps in LHCb</h1>
+          <h2 class="subtitle">The LHCb data flow</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Understand the LHCb data flow</li>
+<li>Learn the key concepts on the stripping</li>
+</ul>
+</div>
+</div>
+<p>The Large Hadron Collider provides proton-proton collisions to LHCb 40 million times a second. This results in a <em>huge</em> amount of data.</p>
+<p>Let's say we could somehow store the response of every subdetector in LHCb for every event, a proton-proton bunch crossing, in only one kilobyte, that is to say as 8000 ones and zeroes. This would mean you'd need 40 gigabytes of disk space to store one second of data!</p>
+<p>That's too much data for us to be able to keep all of it, the price of storage is just too high, so instead we need to <em>filter</em> the data and try to keep only the events which contain something interesting. This raises its own problems:</p>
+<ul>
+<li>How do we filter and process the recorded data quickly and accurately?</li>
+<li>How do we manage all the complex tasks required to work with collision data?</li>
+<li>How do we organize all the data of a single bunch crossing in a flexible way?</li>
+<li>How do we configure our software flexibly without having to recompile it?</li>
+<li>Can you think of more?</li>
+</ul>
+<p>These questions arise mostly due to two key points: the data must be processed very quickly because it's arriving very quickly, and the data is complex so there's a lot that can be done with it.</p>
+<p>Collisions recorded by the LHCb detector go through a specific data flow designed to maximise the data-taking efficiency and data quality. This consists of several steps, each one being controlled by an ‘application’ that processes the data event-by-event, using the data from the previous step and creating the results ready for the next. These steps are as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Data from the detector are filtered through the <em>trigger</em>, which consists of the L0, implemented in hardware, and the high level trigger (HLT), implemented in software. The application responsible for the software trigger is Moore, which will be discussed in further detail in the trigger lesson.</li>
+<li>Triggered, raw data are reconstructed to transform the detector hits into objects such as tracks and clusters. This is done by the Brunel application. The objects are stored into an output file in a ‘DST’ format.</li>
+<li><p>The reconstructed DST files are suitable for analysis, but they are not accessible to users due to computing restrictions. Data are filtered further through a set of selections called the <em>stripping</em>, controlled by the DaVinci application which write out data either in the DST or ‘µDST’ (micro-DST) format. To save disk space and to speed up access for analysts, the output files are grouped into <em>streams</em> which contain similar selections. By grouping all of the fully hadronic charm selections together, for example, analysts interested in that type of physics don't waste time running over the output of the dimuon selections.</p>
+<div id="the-output-format" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>The output format</h2>
+</div>
+<div class="panel-body">
+<p>A DST file is a ROOT file which contains the full event information, such as reconstructed objects and raw data. Each event typically takes around 150kB of disk space in the DST format. The µDST format was designed to save space by storing only the information concerning the build <em>candidates</em> (that is, the objects used to construct particle decays like tracks); the raw event, which takes around 50kB per event, is discarded.</p>
+</div>
+</div></li>
+<li><p>Users can run their own analysis tools to extract variables for their analysis with the DaVinci application. The processing is slightly different between DST and µDST, since some calculations need the other tracks in the event (not only the signal), which are not available in the latter format.</p></li>
+</ol>
+<p>We also produced lots of simulated events, often called Monte Carlo data, and this is processed in a very similar way to real data. This similarity is very beneficial, as the simulated data is subject to the same deficiencies as in the processing of real data. There are two simulation steps which replace the proton-proton collisions and the detector response:</p>
+<ol style="list-style-type: decimal">
+<li>The simulation of proton-proton collisions, and the hadronisation and decay of the resulting particles, are ultimately controlled by the Gauss application. Gauss is responsible for calling the various Monte Carlo generators that are supported such as Pythia (the default in LHCb) and POWHEG, and for controlling EvtGen and Geant4. EvtGen is used to describe the decays of simulated particles, whilst Geant4 is used to simulate the propagation and interaction of particles through and with the detector.</li>
+<li>The simulated hits made in the virtual detector are converted to signals that mimic the real detector by the Boole application. The output of Boole is designed to closely match the output of the real detector, and so the simulated data can then be passed through the usual data processing chain described above, beginning with the trigger.</li>
+</ol>
+<p>So, the data flow and the associated applications look like this:</p>
+<p><a href="img/lhcb_data_flow.png"><img src="img/lhcb_data_flow.png" alt="&quot;The flow of real and simulated data during Run 1 of the LHC&quot;" /></a></p>
+<p>Knowing this flow is essential in selecting your data! Different application versions can produce very different physics, so it's very useful to know how each application has manipulated the data you want to use.</p>
+<div id="why-are-there-multiple-applications" class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Why are there multiple applications?</h2>
+</div>
+<div class="panel-body">
+<p>It's often simpler to create and visualise a single, monolithic program that does <em>everything</em>, but that's not how the data flow is set up in LHCb. Why not? What are the advantages of splitting up the software per task? What are the disadvantages?</p>
+</div>
+</div>
+<p>With the exception of a few specific studies, it is only the DaVinci application that is run by users, everything else is run ‘centrally’ either on the computing farm next to the detector or on the Grid.</p>
+<p>The reconstruction, Brunel, is rarely performed as it is very computationally intensive. It is only done when the data are taken and when a new reconstruction configuration is available. The stripping can be performed more often, since it runs on reconstructed data.</p>
+<p>Stripping ‘campaigns’, when the stripping selections are centrally run, are identified by a version as <code>SXrYpZ</code>:</p>
+<ul>
+<li>The digit <code>X</code> marks the <em>major</em> stripping version. This marks all major <em>restrippings</em>, in which the full list of selections are processed.</li>
+<li>The digit <code>Y</code> is the release version, which was used during Run 1 to mark the <em>data type</em>, which corresponds to the year the data were taken: <code>0</code> was used for 2012 and <code>1</code> for 2011. The latest stripping for Run 1 data is called <code>S21</code> for 2012 and <code>S21r1</code> for 2011.</li>
+<li>The digit <code>Z</code> marks the <em>patch</em> version, which correspond to <em>incremental strippings</em>; campaigns in which only a handful of selections are run, either to fix bugs or to add a small number of new ones.</li>
+</ul>
+<p>Knowing the reconstruction and stripping versions is often the most important part in choosing your data, because the selections generally always change between major stripping versions, and variables can look very different between reconstruction versions.</p>
+<p>The list of stripping selection largely defines the reconstructed decays that are available to you, but the list is very long as there's a lot we can do with our data. If you don't know the stripping line you need, it's usually best to ask the stripping coordinators of the working group you'll be presenting your work to. To learn more about the stripping, the best resource is the <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/LHCbStripping">stripping page on the LHCb TWiki</a>. In it we can find:</p>
+<ul>
+<li>The status of the current stripping, e.g. for <a href="http://lhcbproject.web.cern.ch/lhcbproject/Reprocessing/stats-re-stripping-fall14.html">Stripping <code>S21r1</code></a>.</li>
+<li>The configuration of all past stripping campaign, e.g. for <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/Stripping20Configuration">Stripping <code>S20</code></a>.</li>
+</ul>
+<p>Additionally, the information on all strippings can be found in the <a href="http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/stripping/">stripping project website</a>, where you can see all the algorithms run and cuts applied in each <em>line</em>. For example, if we wanted to understand the <code>StrippingD2hhCompleteEventPromptDst2D2RSLine</code> line, which we used in the <a href="interactive-dst.html">exploring a DST</a> lesson from now on, we would go <a href="http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/stripping/config/stripping21/charmcompleteevent/strippingd2hhcompleteeventpromptdst2d2rsline.html">here</a>.</p>
+        </div>
+      </div>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/lhcb/first-analysis-steps">Source</a>
+        <a class="label swc-blue-bg" href="mailto:lhcb-starterkit@cern.ch">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script>
+      // Go KaTeX go!
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>

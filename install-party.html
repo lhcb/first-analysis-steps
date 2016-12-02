@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LHCb Starterkit: First Steps in LHCb</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-63818884-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://lhcb.github.io/first-analysis-steps/">
+          <img src="img/new_starterkit.png" height="150" alt="LHCb Starterkit">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="title">First Steps in LHCb</h1>
+          <h2 class="subtitle">Install party</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Install git from source</li>
+<li>Install Anaconda</li>
+</ul>
+</div>
+</div>
+<p>In order to follow the Basics part of the workshop (first two days) you will need to have recent versions of Python and Git installed either on your laptop or on lxplus. The instructions below explain how you can install Python and libraries for scientific computing on lxplus by using the the Anaconda Python distribution. After that, they explain how you can compile a recent version of git, because the default version on lxplus is very old and doesn't support all the features we'll need.</p>
+<div id="health-warning" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Health warning</h2>
+</div>
+<div class="panel-body">
+<p>Once you install things yourself you have an environment that is different from the &quot;standard&quot; LHCb setup. It means you have to keep software up-to-date yourself and when things start going wrong everyone will blame it on your custom setup. Keep that in mind. With great tools comes great responsibility.</p>
+</div>
+</div>
+<p><code>Anaconda</code> is a complete set of <code>python</code> interpreter and useful libraries. For example it comes with <code>ipython</code> pre-installed as well as <code>matplotlib</code> and <code>scikit-learn</code>.</p>
+<p>To install <code>Anaconda</code> on lxplus or your Mac/Linux laptop follow these instructions:</p>
+<ol style="list-style-type: decimal">
+<li>Visit the <a href="http://continuum.io/downloads"><code>Anaconda downloads</code></a> page.</li>
+<li>Make sure to select the correct operating system (Windows, Mac or Linux)</li>
+<li>For <code>lxplus</code> download the Linux 64bit - Python2.7 installer. To do this, right click on 64-bit installer for python 2.7 and click on copy link address.To begin installing this on <code>lxplus</code> you need to use wget:</li>
+</ol>
+<p><code>bash    $ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh</code> Where the argument to wget is the link address you copied. The link address may change as new versions of anaconda are released so be aware! 4. Then on <code>lxplus</code> type <code>bash Anaconda2-4.2.0-Linux-x86_64.sh</code> in the directory to which you downloaded the installer. Use <code>bash</code> no matter what your shell actually is. 5. Follow the on-screen instructions and go with the default answer to all questions.</p>
+<p>This will install a modern set of python libraries to <code>~/anaconda</code>. This means you need to have some free space on your AFS home directory. Once it is done check that the installer added these two lines to your <code>.bashrc</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># added by Anaconda2 4.2.0 installer</span>
+<span class="kw">export</span> <span class="ot">PATH=</span><span class="st">&quot;~/anaconda2/bin:</span><span class="ot">$PATH</span><span class="st">&quot;</span></code></pre>
+<p>Log out of <code>lxplus</code> and back in. Now you should be able to start <code>python</code> as well as <code>ipython</code>, etc.</p>
+<div id="removing-anaconda" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Removing Anaconda</h2>
+</div>
+<div class="panel-body">
+<p>To remove <code>Anaconda</code> temporarily, simply comment out the two lines that were added to your <code>.bashrc</code> file. To permanently remove it simply delete the <code>anaconda</code> directory in your home directory.</p>
+</div>
+</div>
+<p>To install <code>git</code> &quot;from source&quot; on <code>lxplus</code> follow these instructions.</p>
+<ol style="list-style-type: decimal">
+<li>Visit the <a href="https://github.com/git/git">git repository</a> on github</li>
+<li>Click on &quot;releases&quot;, which takes you to the list of <a href="https://github.com/git/git/releases">all git releases</a></li>
+<li><p>Download the <code>.tar.gz</code> for the latest release (v2.10.2) to <code>lxplus</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">wget</span> https://github.com/git/git/archive/v2.10.2.tar.gz</code></pre></li>
+<li>unpack the <code>.tar.gz</code> with <code>tar xzf v2.10.2.tar.gz</code></li>
+<li>Change to the newly created <code>git-2.10.2</code> directory: <code>cd git-2.20.2</code></li>
+<li>Follow the <a href="https://github.com/git/git/blob/master/INSTALL">INSTALL</a> instructions.</li>
+<li><p>To install <code>git</code> in your home directory type:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">export</span> <span class="ot">CURLDIR=$HOME</span>/anaconda
+$ <span class="kw">mkdir</span> <span class="ot">$HOME</span>/git-install-2.10.2
+$ <span class="kw">make</span> prefix=<span class="ot">$HOME</span>/git-install-2.10.2
+$ <span class="kw">make</span> prefix=<span class="ot">$HOME</span>/git-install-2.10.2 install</code></pre></li>
+<li><p>Add the following line to your <code>.bashrc</code>:</p>
+<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">export</span> <span class="ot">PATH=</span><span class="st">&quot;</span><span class="ot">$HOME</span><span class="st">/git-install-2.10.2/bin:</span><span class="ot">$PATH</span><span class="st">&quot;</span></code></pre></li>
+</ol>
+<div id="removing-git" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Removing git</h2>
+</div>
+<div class="panel-body">
+<p>To temporarily remove <code>git</code> remove the line you added to your <code>.bashrc</code>, and delete the <code>git-install-2.10.2</code> directory in your home directory to remove it permanently.</p>
+</div>
+</div>
+        </div>
+      </div>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/lhcb/first-analysis-steps">Source</a>
+        <a class="label swc-blue-bg" href="mailto:lhcb-starterkit@cern.ch">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script>
+      // Go KaTeX go!
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>

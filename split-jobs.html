@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LHCb Starterkit: First Steps in LHCb</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-63818884-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://lhcb.github.io/first-analysis-steps/">
+          <img src="img/new_starterkit.png" height="150" alt="LHCb Starterkit">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="title">First Steps in LHCb</h1>
+          <h2 class="subtitle">Splitting a job into subjobs</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Learn how to process many files in parallel on the grid by splitting a job into many subjobs</li>
+</ul>
+</div>
+</div>
+<p>In the <a href="davinci-grid.html">previous lesson</a>, you've submitted a job to the LHC grid. You will notice that the job will take a long time to finish. This is because it has to process many gigabytes of data.</p>
+<p><code>ganga</code> provides several <em>splitters</em> that implement strategies for processing data in parallel. The one we will use now is <code>SplitByFiles</code>, which spawns several subjobs, each of which only processes a certain number of files.</p>
+<p>Apart from processing data faster, this will also allow you to work with datasets that are spread across several sites of the LHC grid. This is because a job can only access datasets that are available on the site that it runs on.</p>
+<p>To activate a splitter, assign it to the <code>.splitter</code> attribute of your job:</p>
+<pre class="sourceCode python"><code class="sourceCode python">j.splitter = SplitByFiles(filesPerJob=<span class="dv">5</span>)</code></pre>
+<p>Note that the specified number of files per job is only the allowed maximum. You will often get jobs with fewer files.</p>
+<div id="how-do-i-choose-the-number-of-files-per-job" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>How do I choose the number of files per job?</h2>
+</div>
+<div class="panel-body">
+<p>Choose fewer files per job if possible, as this will allow you to finish sooner and reduces the impact of jobs failing due to grid problems. Setting <code>filesPerJob=5</code> should work well for real data, while <code>filesPerJob=1</code> should be good for signal MC.</p>
+</div>
+</div>
+<p>Now, when you run <code>j.submit()</code>, the job will automatically be split into several subjobs. These can be displayed by entering</p>
+<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs</code></pre>
+<p>in <code>ganga</code>, where you have to replace 787 with the <code>id</code> of your main job.</p>
+<p>You can access individual subjobs as in <code>jobs(787).subjobs(2)</code>. For example, to resubmit a failed subjob, you would run</p>
+<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">2</span>).resubmit()</code></pre>
+<p>To access several subjobs at once, you can use the <code>.select</code> method:</p>
+<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs.select(status=<span class="st">&#39;failed&#39;</span>).resubmit()</code></pre>
+<p>This will resubmit all failed subjobs.</p>
+<p>If you want to do something more complex with each subjob, a regular <code>for</code>-loop can be used as well:</p>
+<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> j in jobs(<span class="dv">787</span>).subjobs:
+    <span class="dt">print</span>(j.<span class="dt">id</span>)</code></pre>
+<p>It's possible that some of your subjobs will be stuck in a certain state (submitting/completing/...). If that is the case, try to reset the Dirac backend:</p>
+<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).backend.reset()</code></pre>
+<p>If that doesn't help, try failing the job and resubmitting:</p>
+<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).force_status(<span class="st">&#39;failed&#39;</span>)
+jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).resubmit()</code></pre>
+<p>It can take quite a while to submit all of your subjobs. If you want to continue working in ganga while submitting jobs, you can use the <code>queues</code> feature to do just that. Simply call <code>queues.add</code> with the <code>submit</code> function of a job without adding parentheses, like this:</p>
+<pre><code>queues.add(j.submit)</code></pre>
+<p>Ganga will then submit this job (and its subjobs) in the background. Make sure not to close <code>ganga</code> before the submission is finished, or you will have to start submitting the rest of the jobs again later on.</p>
+<div id="splitting-your-first-job" class="challenge panel panel-success">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pencil"></span>Splitting your first job</h2>
+</div>
+<div class="panel-body">
+<p>Try splitting the <code>ganga</code> job from our previous lesson with <code>splitByFiles=1</code> (<a href="code/split-jobs/first-job.py">reference code</a>) and submit it with <code>ganga</code>.</p>
+</div>
+</div>
+        </div>
+      </div>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/lhcb/first-analysis-steps">Source</a>
+        <a class="label swc-blue-bg" href="mailto:lhcb-starterkit@cern.ch">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script>
+      // Go KaTeX go!
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>

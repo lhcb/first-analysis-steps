@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LHCb Starterkit: First Steps in LHCb</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script>
+     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     ga('create', 'UA-63818884-1', 'auto');
+     ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://lhcb.github.io/first-analysis-steps/">
+          <img src="img/new_starterkit.png" height="150" alt="LHCb Starterkit">
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <h1 class="title">First Steps in LHCb</h1>
+          <h2 class="subtitle">More Ganga</h2>
+<div id="learning-objectives" class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
+<ul>
+<li>Set the input data with BKQuery</li>
+<li>Use LHCbDatasets</li>
+<li>Set the location of the output of our jobs</li>
+<li>Set the location of your .gangadir</li>
+<li>Access output stored on the grid</li>
+</ul>
+</div>
+</div>
+<p>The input data can be specified for your job with the BKQuery tool. The path for the data can be found using the online Dirac portal and passed to the <code>BKQuery</code> to get the dataset. For example, to run over the Stripping 21 MagUp, Semileptonic stream</p>
+<pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">3</span>]: j.inputdata = BKQuery(<span class="st">&#39;/LHCb/Collision12/Beam4000GeV-VeloClosed-MagUp/Real Data/Reco14/Stripping21r0p1a/90000000/SEMILEPTONIC.DST&#39;</span>).getDataset()
+Ganga In [<span class="dv">4</span>]: j.inputdata
+Ganga Out [<span class="dv">4</span>]: 
+ LHCbDataset (
+   depth = <span class="dv">0</span>,
+   treat_as_inputfiles = <span class="ot">False</span>,
+   persistency = <span class="ot">None</span>,
+   files = [<span class="dv">3717</span> Entries of <span class="dt">type</span> <span class="st">&#39;DiracFile&#39;</span>] ,
+   XMLCatalogueSlice =    LocalFile (
+     namePattern = ,
+     compressed = <span class="ot">False</span>,
+     localDir = 
+   ) 
+ )</code></pre>
+<p>This is a list of <code>DiracFile</code>, the Ganga object for files stored on the grid. We can access one locally via the <code>accessURL</code>:</p>
+<pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">5</span>]: j.inputdata[<span class="dv">0</span>].accessURL()
+Ganga Out [<span class="dv">5</span>]: [<span class="st">&#39;root://bw32-4.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/SEMILEPTONIC.DST/00051179/0000/00051179_00006978_1.semileptonic.dst&#39;</span>]</code></pre>
+<p>The returned path can be used by Bender to explore the contents of the DST, as in the <a href="interactive-dst.html">Interactively exploring a DST</a> lesson.</p>
+<p>In the previous lesson we looked at the location of the ouput with <code>job(782).outputdir</code>. This location points us to the <code>gangadir</code> where ganga stores information about the jobs and the output. If we have lots of jobs with large files the file system where the gangadir is located will quickly fill up.</p>
+<div id="setting-the-gangadir-location" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Setting the gangadir location</h2>
+</div>
+<div class="panel-body">
+<p>The location of the <code>gangadir</code> can be changed in the configuration file '~/.gangarc'. Just search for the <code>gangadir</code> attribute and change it to where you like (on the CERN AFS the <code>work</code> area is a popular choice).</p>
+</div>
+</div>
+<p>To avoid filling up the filespace it is wise to put the large files produced by your job somewhere with lots of storge - the grid. You can do so by setting the <code>outputfiles</code> attribute:</p>
+<pre class="sourceCode python"><code class="sourceCode python">j.outputfiles = [DiracFile(<span class="st">&#39;*.root&#39;</span>), LocalFile(<span class="st">&#39;stdout&#39;</span>)]</code></pre>
+<p>The <code>DiracFile</code> will be stored in your user area on the grid (with up to 2TB personal capacity) from where you can access it with the <code>accessURL()</code> function as before. The wildcard means that any root file produced by your job will stay on the grid. <code>LocalFile</code> downloads the file to your <code>gangadir</code>, in this case the one called <code>stdout</code>.</p>
+<p>Small files are downloaded as standard: <code>.root</code>, logfiles etc. Files that are expected to be large which have extensions .dst etc are by default kept on the grid as Dirac files. In general you are encouraged to keep your large files on the grid to avoid moving large amounts of data around through your work area.</p>
+<div id="getting-help-with-ganga" class="callout panel panel-info">
+<div class="panel-heading">
+<h2><span class="glyphicon glyphicon-pushpin"></span>Getting help with ganga</h2>
+</div>
+<div class="panel-body">
+<p>To find out more take a look at the <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/FAQ/GangaLHCbFAQ">Ganga FAQ</a></p>
+</div>
+</div>
+        </div>
+      </div>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="http://software-carpentry.org">Software Carpentry</a>
+        <a class="label swc-blue-bg" href="https://github.com/lhcb/first-analysis-steps">Source</a>
+        <a class="label swc-blue-bg" href="mailto:lhcb-starterkit@cern.ch">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/contrib/auto-render.min.js"></script>
+    <script>
+      // Go KaTeX go!
+      renderMathInElement(document.body);
+    </script>
+  </body>
+</html>
