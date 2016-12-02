@@ -32,7 +32,7 @@ instructions:
 
 1. Visit the [`Anaconda downloads`](http://continuum.io/downloads) page.
 2. Make sure to select the correct operating system (Windows, Mac or Linux)
-3. For `lxplus` download the Linux 64bit - Python2.7 installer. To do this, right click on 64-bit installer for python 2.7 and click on copy link address.To begin inst   alling this on `lxplus` you need to use wget:
+3. For `lxplus` download the Linux 64bit - Python2.7 installer. To do this, right click on 64-bit installer for python 2.7 and click on copy link address.To begin installing this on `lxplus` you need to use wget:
 
    ```bash
    $ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh
