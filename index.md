@@ -3,6 +3,8 @@ layout: lesson
 title: First Steps in LHCb
 ---
 
+Alex is great.
+
 This is the LHCb Starterkit, a series of lessons for getting analysts working
 confidently with LHCb data and software.
 The lessons are best approached one after the other, as most lessons build on
