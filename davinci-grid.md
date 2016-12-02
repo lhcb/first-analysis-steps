@@ -61,7 +61,7 @@ processing different files simultaneously.
 
 Now you have created your first job, however it has not started
 running yet. To submit it type `j.submit()`. Now `ganga` will do the
-equivalent of `lb-run DaVinci v41r2`, prepare your job and then
+equivalent of `lb-run DaVinci/v41r2`, prepare your job and then
 ship it off to the grid.
 
 While it runs, let's submit an identical job via slightly different
