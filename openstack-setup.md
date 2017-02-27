@@ -31,7 +31,7 @@ Now, we need to get several technologies working so that we can do LHCb tasks.
  2. EOS
  3. Additional required packages
  4. Getting into an LHCb env
- 5. **Avoid** AFS!
+ 5. Avoiding AFS
 
 In order to expedite this I'd recommend first logging in as root to your box using the key you setup the instance with.
 
