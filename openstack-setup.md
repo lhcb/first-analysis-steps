@@ -51,11 +51,18 @@ In order to expedite this I'd recommend first logging in as root to your box usi
 Following the instructions at: https://cernvm.cern.ch/portal/filesystem/quickstart
 
 ```[bash]
+# Install cvmfs
 yum install cvmfs cvmfs-config-default
+
+# Run initial setup
 cvmfs_config setup
+
+# Setup the config
 mkdir -p /etc/cvmfs
 echo 'CVMFS_REPOSITORIES=lhcb.cern.ch,ganga.cern.ch' >> /etc/cvmfs/default.local
 echo 'CVMFS_HTTP_PROXY="http://ca-proxy.cern.ch:3128"' >> /etc/cvmfs/default.local
+
+# Probe to test that this worked as expected
 cvmfs_config probe
 ```
 
@@ -132,9 +139,13 @@ rcurrie:x:54830:1470:Robert Andrew Currie,2 1-028,+41227674263,:/home/rcurrie:/b
 
 Now make a home dir:
 ```[bash]
-# Make home and bashrc and set ownership
+# Make home
 mkdir -p /home/rcurrie
+
+# Make bashrc
 echo 'source /etc/bashrc' >> /home/rcurrie/.bashrc
+
+# Setup ownership
 chown -R rcurrie /home/rcurrie
 ```
 
@@ -172,6 +183,7 @@ make test
 ```[bash]
 # Create a temp job
 echo 'j=Job(backend=Dirac());j.submit()' >> /tmp/tmpJob.sh
+
 # Execute test grid job
 lb-run ganga/v603r1 ganga /tmp/tmpJob.sh
 ```
