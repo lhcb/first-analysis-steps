@@ -1,3 +1,10 @@
+---
+layout: page
+title: Setting up a VM for LHCb
+subtitle: Setting up a CERN openstack VM for LHCb work mainly using CVMFS
+minutes: 30+
+---
+
 ### What
 
 This is a guide to setup a VM on the CERN openstack cluster to do LHCb work.
