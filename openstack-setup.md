@@ -5,6 +5,12 @@ subtitle: Setting up a CERN openstack VM for LHCb work mainly using CVMFS
 minutes: 30+
 ---
 
+TODO:
+* Setup Write Access to EOS
+* Confirm submitting grid jobs work
+* Show some simple benchmarks if this is better/worse for certain tasks than lxplus
+* Work out what the AFS login script does and if it can be made to ignore AFS when present by default.
+
 ### What
 
 This is a guide to setup a VM on the CERN openstack cluster to do LHCb work.
