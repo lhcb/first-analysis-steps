@@ -1,4 +1,6 @@
-K, first I'm writing this assuming you've got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do elsewhere. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
+#### First
+
+I'm writing this assuming you've got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do elsewhere. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
 
 First:
