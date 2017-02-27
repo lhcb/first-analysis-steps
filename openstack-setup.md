@@ -7,7 +7,6 @@ minutes: 30+
 
 TODO:
 * Setup Write Access to EOS
-* Confirm submitting grid jobs work
 * Show some simple benchmarks if this is better/worse for certain tasks than lxplus
 * Work out what the AFS login script does and if it can be made to ignore AFS when present by default.
 
@@ -154,6 +153,13 @@ make -j
 
 # Lets run some tests
 make test
+```
+
+### Test submitting a grid job
+
+```[bash]
+echo 'j=Job(backend=Dirac());j.submit()' >> /tmp/tmpJob.sh
+lb-run ganga/v603r1 ganga /tmp/tmpJob.sh
 ```
 
 ### Removing AFS (For the very brave)
