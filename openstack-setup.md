@@ -1,4 +1,4 @@
-#### First
+### Laying the ground
 
 I'm writing this assuming you've got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do elsewhere. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
@@ -19,7 +19,7 @@ Now, we need to get several technologies working so that we can do LHCb tasks.
 
 In order to expedite this I'd recommend first logging in as root to your box using the key you setup the instance with.
 
-#### Setting up CVMFS
+### Setting up CVMFS
 
 Following the instructions at: https://cernvm.cern.ch/portal/filesystem/quickstart
 
@@ -32,7 +32,7 @@ echo 'CVMFS_HTTP_PROXY="http://ca-proxy.cern.ch:3128"' >> /etc/cvmfs/default.loc
 cvmfs_config probe
 ```
 
-#### Setting up EOS
+### Setting up EOS
 
 Following the instructions at: https://twiki.cern.ch/twiki/bin/view/EOS/EosClientInstall
 
@@ -51,26 +51,26 @@ This is a short list of RPMs which are not part of the default install but LHCb 
 ```[bash]
 yum install git svn make gcc gcc-c++ cern-get-sso-cookie make ninja-build ccache screen python2-ipython_genutils
 ```
-Optional but nice packages to also install:
+(Optional) but nice packages to also install:
 ```[bash]
 yum install htop iftop iotop vim valgrind python2-pip 
 ```
 
-Optional env change:
+(Optional) env change:
 ```[bash]
 echo 'alias vi=vim' >> /etc/bashrc
 ```
 
 
 
-#### Getting LHCb env
+### Getting LHCb env
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
 echo 'source /cvmfs/lhcb.cern.ch/group_login.sh' >> /etc/bashrc
 ```
 
-#### Avoid AFS (Optional)
+### Avoid AFS (Optional)
 
 Now, still logged in as root you want to edit the following file:
 ```[bash]
@@ -94,9 +94,9 @@ Also we want to disable the AFS sourcing of our tools when we login with our use
 ```
 mv /etc/profile.d/zzz_hepix.sh{,.bak}
 ```
-BEWARE! I don't know/care what this script does I just know I don't want to run it anymore!
+**BEWARE**! I don't know/care what this script does I just know I don't want to run it anymore!
 
-#### Testing your new VM
+### Testing your new VM
 
 First login as your user account on the VM.
 
@@ -119,7 +119,7 @@ make -j
 make test
 ```
 
-#### Removing AFS (For the very brave)
+### Removing AFS (For the very brave)
 
 As root again on the box.
 ```
