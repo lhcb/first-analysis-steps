@@ -123,12 +123,12 @@ Now make a home dir:
 ```[bash]
 mkdir -p /home/rcurrie
 chown -R rcurrie /home/rcurrie
+echo 'source /etc/bashrc' >> /home/rcurrie/.bashrc
 ```
 
 Also we want to disable the AFS sourcing of our tools when we login with our user account:
 ```
 mv /etc/profile.d/zzz_hepix.sh{,.bak}
-echo 'source /etc/bashrc' >> /etc/profile
 ```
 **BEWARE**! I don't know/care what this script does I just know I don't want to run it anymore!
 
