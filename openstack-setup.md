@@ -100,7 +100,7 @@ echo 'alias vi=vim' >> /etc/bashrc
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
-echo 'export CMTCONFIG=x86_64-centos7-gcc49-opt' >> /etc/bashrc
+echo 'export CMTCONFIG=x86_64-slc6-gcc49-opt' >> /etc/bashrc
 echo 'source /cvmfs/lhcb.cern.ch/group_login.sh' >> /etc/bashrc
 ```
 
