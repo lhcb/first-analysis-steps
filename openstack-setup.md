@@ -1,9 +1,16 @@
+### Why
+
+First, centralized filesystems are difficult/very costly to run and AFS does scale well, but it is slower than a local fs and has difficulty synchronising many changes across the network.
+(The main project to suffer from this is Ganga).
+
+On top of this it's a technology which is not being supported in the mid to long term so I would advise jumping ship now as there are already several good reasons to.
+
 ### Laying the ground
 
-I'm writing this assuming you've got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do elsewhere. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
+I'm writing this assuming you've already got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do to get one setup. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
 
-First:
+Once you have your VM, remember to update it!
 ```[bash]
 apt-get update
 apt-get upgrade
@@ -43,24 +50,28 @@ echo 'export EOS_MGM_URL=root://eoslhcb.cern.ch' >> /etc/bashrc
 yum install openssl098e libssl
 ln -sf /usr/lib64/libreadline.so.6 /usr/lib64/libreadline.so.5
 ```
-(Yes the final line here is potentially unsafe but it's needed on CENTOS7 and the ABI hasn't changed much so this is OK for the 99% of use cases I've come across)
+(NB: The final line here is potentially unsafe but it's needed on CENTOS7 and the ABI hasn't changed much so this is OK for the 99% of use cases I've come across)
+
+TODO:
+I still haven't worked out how to setup write permissions to EOS yet from a WN this is likely due to needing to do something with a kerberos token.
 
 #### Setting up missing packages
 
+**Essential**:
 This is a short list of RPMs which are not part of the default install but LHCb expects to be able to use:
 ```[bash]
 yum install git svn make gcc gcc-c++ cern-get-sso-cookie make ninja-build ccache screen python2-ipython_genutils
 ```
-(Optional) but nice packages to also install:
+
+**Optional**
+nice packages to also install:
 ```[bash]
 yum install htop iftop iotop vim valgrind python2-pip 
 ```
-
-(Optional) env change:
+nice env change(s):
 ```[bash]
 echo 'alias vi=vim' >> /etc/bashrc
 ```
-
 
 
 ### Getting LHCb env
@@ -84,7 +95,7 @@ Edit it to look like:
 ```[bash]
 rcurrie:x:54830:1470:Robert Andrew Currie,2 1-028,+41227674263,:/home/rcurrie:/bin/bash
 ```
-Now run:
+Finally:
 ```[bash]
 mkdir -p /home/rcurrie
 chown -R rcurrie /home/rcurrie
@@ -129,5 +140,3 @@ yum remove openafs
 ```
 
 This will ensure that your system is AFS free but you may catch the odd hard-coded AFS path which still remains.
-
-
