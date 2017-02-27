@@ -6,7 +6,6 @@ minutes: 30+
 ---
 
 TODO:
-* Setup Write Access to EOS
 * Show some simple benchmarks if this is better/worse for certain tasks than lxplus
 * Work out what the AFS login script does and if it can be made to ignore AFS when present by default.
 
@@ -73,8 +72,6 @@ ln -sf /usr/lib64/libreadline.so.6 /usr/lib64/libreadline.so.5
 ```
 (NB: The final line here is potentially unsafe but it's needed on CENTOS7 and the ABI hasn't changed much so this is OK for the 99% of use cases I've come across)
 
-TODO:
-I still haven't worked out how to setup write permissions to EOS yet from a WN this is likely due to needing to do something with a kerberos token.
 
 #### Setting up missing packages
 
