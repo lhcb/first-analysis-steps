@@ -1,11 +1,20 @@
+### What
+
+This is a guide to setup a VM on the CERN openstack cluster to do LHCb work.
+
+This has the advantage of being a VM which has some 'dedicated' resources which won't get impacted by multiple users logging into the VM and building many different projects.
+
+This also allows you to work entirely without AFS using resources provided by CERN.
+You can ignore the steps here to remove/avoid AFS but I'd recommend trying to go at least a week without it.
+
 ### Why
 
 First, centralized filesystems are difficult/very costly to run and AFS does scale well, but it is slower than a local fs and has difficulty synchronising many changes across the network.
-(The main project to suffer from this is Ganga).
+(One project which heavily suffers from this is Ganga).
 
 On top of this it's a technology which is not being supported in the mid to long term so I would advise jumping ship now as there are already several good reasons to.
 
-### Laying the ground
+### Start here
 
 I'm writing this assuming you've already got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do to get one setup. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
@@ -74,7 +83,7 @@ echo 'alias vi=vim' >> /etc/bashrc
 ```
 
 
-### Getting LHCb env
+### Getting into the LHCb env (cvmfs)
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
