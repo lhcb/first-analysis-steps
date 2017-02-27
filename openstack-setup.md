@@ -64,10 +64,19 @@ cvmfs_config probe
 Following the instructions at: https://twiki.cern.ch/twiki/bin/view/EOS/EosClientInstall
 
 ```[bash]
+# Setup the path for binaries
 echo 'export PATH=$PATH:/afs/cern.ch/project/eos/installation/lhcb/bin' >> /etc/bashrc
+
+# Setup the lib path for libraries
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/afs/cern.ch/project/eos/installation/lhcb/lib64' >> /etc/bashrc
+
+# Setup the EOS settings for LHCb
 echo 'export EOS_MGM_URL=root://eoslhcb.cern.ch' >> /etc/bashrc
+
+# Install some missing libs
 yum install openssl098e libssl
+
+# Fix a missing symlink when running 'eos' interactively
 ln -sf /usr/lib64/libreadline.so.6 /usr/lib64/libreadline.so.5
 ```
 (NB: The final line here is potentially unsafe but it's needed on CENTOS7 and the ABI hasn't changed much so this is OK for the 99% of use cases I've come across)
@@ -96,8 +105,13 @@ echo 'alias vi=vim' >> /etc/bashrc
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
+# Needed for grid job submission
 echo 'export X509_CERT_DIR=/cvmfs/lhcb.cern.ch/etc/grid-security/certificates' >> /etc/bashrc
+
+# Needed for lb-run/dev to work. Feel free to change to favourite arch
 echo 'export CMTCONFIG=x86_64-slc6-gcc49-opt' >> /etc/bashrc
+
+# Source the LHCb env
 echo 'source /cvmfs/lhcb.cern.ch/group_login.sh' >> /etc/bashrc
 ```
 
@@ -118,9 +132,10 @@ rcurrie:x:54830:1470:Robert Andrew Currie,2 1-028,+41227674263,:/home/rcurrie:/b
 
 Now make a home dir:
 ```[bash]
+# Make home and bashrc and set ownership
 mkdir -p /home/rcurrie
-chown -R rcurrie /home/rcurrie
 echo 'source /etc/bashrc' >> /home/rcurrie/.bashrc
+chown -R rcurrie /home/rcurrie
 ```
 
 Also we want to disable the AFS sourcing of our tools when we login with our user account:
@@ -155,7 +170,9 @@ make test
 ### Test submitting a grid job
 
 ```[bash]
+# Create a temp job
 echo 'j=Job(backend=Dirac());j.submit()' >> /tmp/tmpJob.sh
+# Execute test grid job
 lb-run ganga/v603r1 ganga /tmp/tmpJob.sh
 ```
 
@@ -163,6 +180,7 @@ lb-run ganga/v603r1 ganga /tmp/tmpJob.sh
 
 As root again on the box.
 ```
+# un-mount, remove kernel module and uninstall openafs if you are certain you don't want it
 umount /afs
 rmmod openafs
 yum remove openafs
