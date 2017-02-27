@@ -82,7 +82,7 @@ I still haven't worked out how to setup write permissions to EOS yet from a WN t
 **Essential**:
 This is a short list of RPMs which are not part of the default install but LHCb expects to be able to use:
 ```[bash]
-yum install git svn make gcc gcc-c++ cern-get-sso-cookie make ninja-build ccache screen python2-ipython_genutils
+yum install git svn make gcc gcc-c++ cern-get-sso-cookie make ninja-build ccache screen python2-ipython_genutils rsync vim
 ```
 
 **Optional**
@@ -100,6 +100,7 @@ echo 'alias vi=vim' >> /etc/bashrc
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
+echo 'export X509_CERT_DIR=/cvmfs/lhcb.cern.ch/etc/grid-security/certificates' >> /etc/bashrc
 echo 'export CMTCONFIG=x86_64-slc6-gcc49-opt' >> /etc/bashrc
 echo 'source /cvmfs/lhcb.cern.ch/group_login.sh' >> /etc/bashrc
 ```
