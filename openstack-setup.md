@@ -143,7 +143,7 @@ Now make a home dir:
 mkdir -p /home/rcurrie
 
 # Make bashrc
-echo 'source /etc/bashrc' >> /home/rcurrie/.bashrc
+cp /etc/skel/.b* /home/rcurrie/
 
 # Setup ownership
 chown -R rcurrie /home/rcurrie
