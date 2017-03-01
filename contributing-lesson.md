@@ -105,8 +105,11 @@ to see the website.
 > ## Problems:  {.callout}
 > If you run into trouble try setting up a virtual-env before running pip install:
 > ```
+cd first-analysis-steps
 virtualenv env
 source env/bin/activate
+pip install -r requirements.txt
+make preview
 ```
 
 Next you want to [create a pull
