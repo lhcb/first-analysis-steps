@@ -165,7 +165,7 @@ Also we want to disable the AFS sourcing of our tools when we login with our use
 ```
 mv /etc/profile.d/zzz_hepix.sh{,.bak}
 ```
-**BEWARE**! I don't know/care what this script does I just know I don't want to run it anymore!
+**BEWARE**! I don't know what else this script does I just know I don't want to run it anymore!
 
 ## 7) Testing your new VM
 
