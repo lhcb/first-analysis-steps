@@ -102,8 +102,9 @@ localhost:8000
 to see the website.
 
 
-If you run into trouble try setting up a virtual-env before running pip install:
-```
+> ## Problems:  {.callout}
+> If you run into trouble try setting up a virtual-env before running pip install:
+> ```
 virtualenv env
 source env/bin/activate
 ```
