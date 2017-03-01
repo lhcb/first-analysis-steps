@@ -5,6 +5,15 @@ subtitle: Setting up a CERN openstack VM for LHCb work mainly using CVMFS
 minutes: 30+
 ---
 
+> ## Learning Objectives {.objectives}
+> * Setup CVMFS on a CERN openstack VM
+> * Setup EOS on a CERN openstack VM
+> * Install missing packages needed for LHCb
+> * Setup the LHCb env from cvmfs
+> * Build a package on this VM
+> * Submit a grid job from this VM
+> * Work without using AFS with LHCb software (Optional)
+
 ## Contents
 
 0. <a href="#what">What</a> / <a href="#why">Why</a>
