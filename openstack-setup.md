@@ -17,7 +17,7 @@ minutes: 30+
 ## Contents
 
 0. <a href="#what">What</a> / <a href="#why">Why</a>
-1. <a href="#1-start-here">Start Here</a>
+1. <a href="#1-start-here-">Start Here</a>
 2. <a href="#2-setting-up-cvmfs">Setting up CVMFS</a>
 3. <a href="#3-setting-up-eos">Setting up EOS</a>
 4. <a href="#4-setting-up-missing-packages">Missing Packages</a>
