@@ -101,6 +101,13 @@ localhost:8000
 ```
 to see the website.
 
+
+If you run into trouble try setting up a virtual-env before running pip install:
+```
+virtualenv env
+source env/bin/activate
+```
+
 Next you want to [create a pull
 request](https://help.github.com/articles/creating-a-pull-request/). The
 github documentation is excellent, so we will not duplicate it here. Simply
