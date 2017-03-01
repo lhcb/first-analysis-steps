@@ -14,19 +14,6 @@ minutes: 30+
 > * Submit a grid job from this VM
 > * Work without using AFS with LHCb software (Optional)
 
-## Contents
-
-0. <a href="#what">What</a> / <a href="#why">Why</a>
-1. <a href="#1-start-here-">Start Here</a>
-2. <a href="#2-setting-up-cvmfs">Setting up CVMFS</a>
-3. <a href="#3-setting-up-eos">Setting up EOS</a>
-4. <a href="#4-setting-up-missing-packages">Missing Packages</a>
-5. <a href="#5-getting-into-the-lhcb-env-cvmfs">Setting up the LHCb CVMFS env</a>
-6. <a href="#6-avoid-afs-optional">Avoiding (AFS) optional</a>
-7. <a href="#7-testing-your-new-vm">Testing the LHCb env (build something)</a>
-8. <a href="#8-test-submitting-a-grid-job">Test the LHCb env (submit to grid)</a>
-9. <a href="#9-removing-afs-for-the-very-brave">Remove AFS (optional)</a>
-
 ## What
 
 This is a guide to setup a VM on the CERN openstack cluster to do LHCb work.
@@ -46,7 +33,7 @@ Centralized filesystems are difficult/very costly to run and AFS does scale well
 (One project which heavily suffers from this is Ganga).
 On top of this it's a technology which is not being supported in the mid to long term so I would advise jumping ship now as there are already several good reasons to.
 
-## 1) Start here <a class="anchor" href="#1-start-here"></a>
+## 1) Start here
 
 I'm writing this assuming you've already got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do to get one setup. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
