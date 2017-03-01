@@ -44,8 +44,8 @@ or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html
 
 Once you have your VM, remember to update it!
 ```[bash]
-apt-get update
-apt-get upgrade
+yum update
+yum upgrade
 ```
 
 Now, we need to get several technologies working so that we can do LHCb tasks.
