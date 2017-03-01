@@ -102,7 +102,7 @@ localhost:8000
 to see the website.
 
 
-> ## Problems:  {.callout}
+> ## Common Problems:  {.callout}
 > If you run into trouble try setting up a virtual-env before running pip install:
 > ```
 cd first-analysis-steps
@@ -111,6 +111,8 @@ source env/bin/activate
 pip install -r requirements.txt
 make preview
 ```
+> You may also need to install `pandoc` which may be easier to provide through the host package managment
+> (http://pandoc.org/installing.html)
 
 Next you want to [create a pull
 request](https://help.github.com/articles/creating-a-pull-request/). The
