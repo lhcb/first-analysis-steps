@@ -5,27 +5,26 @@ subtitle: Setting up a CERN openstack VM for LHCb work mainly using CVMFS
 minutes: 30+
 ---
 
-TODO:
-* Show some simple benchmarks if this is better/worse for certain tasks than lxplus
-* Work out what the AFS login script does and if it can be made to ignore AFS when present by default.
-
 ## What
 
 This is a guide to setup a VM on the CERN openstack cluster to do LHCb work.
 
 This has the advantage of being a VM which has some 'dedicated' resources which won't get impacted by multiple users logging into the VM and building many different projects.
 
-This also allows you to work entirely without AFS using resources provided by CERN.
+This also allows you to work entirely without AFS/lxplus but still use computing resources provided by CERN.
 You can ignore the steps here to remove/avoid AFS but I'd recommend trying to go at least a week without it.
 
 ## Why
 
-First, centralized filesystems are difficult/very costly to run and AFS does scale well, but it is slower than a local fs and has difficulty synchronising many changes across the network.
-(One project which heavily suffers from this is Ganga).
+Why not. This is making use of new technologies and would allow you to have a dedicated VM for different tasks which you can keep/snapshot to make development easier.
 
+Reasons to move away from AFS:
+
+Centralized filesystems are difficult/very costly to run and AFS does scale well, but it is slower than a local fs and has difficulty synchronising many changes across the network.
+(One project which heavily suffers from this is Ganga).
 On top of this it's a technology which is not being supported in the mid to long term so I would advise jumping ship now as there are already several good reasons to.
 
-## Start here
+## 0) Start here
 
 I'm writing this assuming you've already got a CERN VM. (openstack.cern.ch) if you've not done this there are lots of guides on what to do to get one setup. e.g. `http://information-technology.web.cern.ch/sites/information-technology.web.cern.ch/files/OpenStack%20training.pdf`
 or: `https://clouddocs.web.cern.ch/clouddocs/tutorial_using_a_browser/index.html`
@@ -46,7 +45,7 @@ Now, we need to get several technologies working so that we can do LHCb tasks.
 
 In order to expedite this I'd recommend first logging in as root to your box using the key you setup the instance with.
 
-## Setting up CVMFS
+## 1) Setting up CVMFS
 
 Following the instructions at: https://cernvm.cern.ch/portal/filesystem/quickstart
 
@@ -66,7 +65,7 @@ echo 'CVMFS_HTTP_PROXY="http://ca-proxy.cern.ch:3128"' >> /etc/cvmfs/default.loc
 cvmfs_config probe
 ```
 
-## Setting up EOS
+## 2) Setting up EOS
 
 Following the instructions at: https://twiki.cern.ch/twiki/bin/view/EOS/EosClientInstall
 
@@ -89,7 +88,7 @@ ln -sf /usr/lib64/libreadline.so.6 /usr/lib64/libreadline.so.5
 (NB: The final line here is potentially unsafe but it's needed on CENTOS7 and the ABI hasn't changed much so this is OK for the 99% of use cases I've come across)
 
 
-## Setting up missing packages
+## 3) Setting up missing packages
 
 **Essential**:
 This is a short list of RPMs which are not part of the default install but LHCb expects to be able to use:
@@ -108,7 +107,7 @@ echo 'alias vi=vim' >> /etc/bashrc
 ```
 
 
-## Getting into the LHCb env (cvmfs)
+## 4) Getting into the LHCb env (cvmfs)
 
 This step drops all users of this VM into the LHCb CVMFS environment.
 ```[bash]
@@ -122,7 +121,7 @@ echo 'export CMTCONFIG=x86_64-slc6-gcc49-opt' >> /etc/bashrc
 echo 'source /cvmfs/lhcb.cern.ch/group_login.sh' >> /etc/bashrc
 ```
 
-## Avoid AFS (Optional)
+## 5) Avoid AFS (Optional)
 
 Now, still logged in as root you want to edit the following file:
 ```[bash]
@@ -155,7 +154,7 @@ mv /etc/profile.d/zzz_hepix.sh{,.bak}
 ```
 **BEWARE**! I don't know/care what this script does I just know I don't want to run it anymore!
 
-## Testing your new VM
+## 6) Testing your new VM
 
 First login as your user account on the VM.
 
@@ -178,7 +177,7 @@ make -j
 make test
 ```
 
-## Test submitting a grid job
+## 7) Test submitting a grid job
 
 ```[bash]
 # Create a temp job
@@ -188,7 +187,7 @@ echo 'j=Job(backend=Dirac());j.submit()' >> /tmp/tmpJob.sh
 lb-run ganga/v603r1 ganga /tmp/tmpJob.sh
 ```
 
-## Removing AFS (For the very brave)
+## 8) Removing AFS (For the very brave)
 
 As root again on the box.
 ```
