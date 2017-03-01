@@ -85,7 +85,9 @@ This can be done by passing the `requirements.txt` that is present in the git re
 ```
 pip install -r requirements.txt --user
 ```
-Besides these packages you need to install pandoc on your system.
+Besides these packages you need to install `pandoc` on your system.
+(http://pandoc.org/installing.html)
+
 Once all requirements are satisfied, run
 ```
 make preview
@@ -111,8 +113,6 @@ source env/bin/activate
 pip install -r requirements.txt
 make preview
 ```
-> You may also need to install `pandoc` which may be easier to provide through the host package managment
-> (http://pandoc.org/installing.html)
 
 Next you want to [create a pull
 request](https://help.github.com/articles/creating-a-pull-request/). The
