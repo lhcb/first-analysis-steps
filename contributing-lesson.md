@@ -8,6 +8,7 @@ minutes: 10
 >
 > * Reporting a mistake
 > * How to look at the source of these lessons
+> * How to clone the Starterkit repository
 > * How to modify a lesson
 
 These lessons are not really about software, they are about people. If
