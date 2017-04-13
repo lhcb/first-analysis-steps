@@ -85,7 +85,9 @@ This can be done by passing the `requirements.txt` that is present in the git re
 ```
 pip install -r requirements.txt --user
 ```
-Besides these packages you need to install pandoc on your system.
+Besides these packages you need to install `pandoc` on your system.
+(http://pandoc.org/installing.html)
+
 Once all requirements are satisfied, run
 ```
 make preview
@@ -100,6 +102,17 @@ Then open you web browser and navigate to
 localhost:8000
 ```
 to see the website.
+
+
+> ## Common Problems:  {.callout}
+> If you run into trouble try setting up a virtual-env before running pip install:
+> ```
+cd first-analysis-steps
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+make preview
+```
 
 Next you want to [create a pull
 request](https://help.github.com/articles/creating-a-pull-request/). The

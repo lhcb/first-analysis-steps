@@ -40,6 +40,7 @@ If you have any problems or questions, you can [send an email to
 1. [Storing large files on EOS](eos-storage.html)
 1. [Splitting a job into subjobs](split-jobs.html)
 1. [Developing LHCb Software](lhcb-dev.html)
+1. [Using OpenStack at CERN (avoiding AFS)](openstack-setup.html)
 1. [Asking good questions](asking-questions.html)
 1. [Early career, gender and diversity](ecgd.html)
 1. [Contribute to this lesson](contributing-lesson.html)
