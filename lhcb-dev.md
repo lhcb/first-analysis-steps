@@ -1,12 +1,13 @@
 ---
 layout: page
 title: First Steps in LHCb
-subtitle: Using git to develop LHCb Software
+subtitle: Developing LHCb Software
 minutes: 45
 ---
 
 > ## Learning Objectives {.objectives}
-> * Learn the basics of how to work with and modify LHCb software packages
+> * Learn how to work with and modify LHCb software projects and packages
+> * Learn how to find and search the source code and its documentation
 
 > ## Prerequisites {.callout}
 >
@@ -27,7 +28,7 @@ repositories:
 
  1. A vanilla git workflow using only the standard git commands.  This requires
  you to `clone` and compile an entire LHCb project at a time.
- 2. An LHCb-specific workflow using a set of `lb-*` subcommands.  This allows
+ 1. An LHCb-specific workflow using a set of `lb-*` subcommands.  This allows
  you to check out individual packages inside a project, and streamlines the
  modification of a few packages at a time.  (This is closer to the previously
  used `getpack` command.)
@@ -36,32 +37,29 @@ Here, we want to focus on the second workflow. The second workflow will be
 discussed briefly at the [bottom](#working-with-a-full-project-checkout) of
 this page.
 
-## Initial setup
-Before jumping in by creating a project in Gitlab, you should make sure that
-your local git configuration and your settings on Gitlab are sufficiently set up:
-
-Your name and email address should be set up in your local `git` configuration.
-To ensure that this is the case, run
-```
-$ git config --global user.name "Your Name"
-$ git config --global user.email "Your Name <your.name@cern.ch>"
-```
-and put in your information.
-
-Next, connect to [https://gitlab.cern.ch](https://gitlab.cern.ch) and log in
-with your CERN credentials.
-
-Visit
-[https://gitlab.cern.ch/profile/keys](https://gitlab.cern.ch/profile/keys) and
-add an SSH key.
-
-Run this LHCb-specific configuration command:
-```
-git config --global lb-use.protocol ssh
-```
-This makes sure the LHCb commands use the ssh protocol instead of https.
-
-## Using lb-dev and git lb-*
+> ## Initial setup {.callout}
+> Before jumping in by creating a project in Gitlab, you should make sure that
+> your local git configuration and your settings on Gitlab are sufficiently set
+> up.
+>
+>  - Your name and email address should be set up in your local `git`
+> configuration.  To ensure that this is the case, run
+> ```
+> git config --global user.name "Your Name"
+> git config --global user.email "Your Name <your.name@cern.ch>"
+> ```
+> and put in your information.
+>
+>  - Next, connect to [https://gitlab.cern.ch](https://gitlab.cern.ch) and log
+> in with your CERN credentials. Visit
+> [https://gitlab.cern.ch/profile/keys](https://gitlab.cern.ch/profile/keys)
+> and add an SSH key.
+>
+>  - Finally, run this LHCb-specific configuration command:
+> ```
+> git config --global lb-use.protocol ssh
+> ```
+> This makes sure the LHCb commands use the ssh protocol instead of https.
 
 This lesson introduces you the commands:
 
@@ -168,9 +166,10 @@ adding the files under
 > project should be at the top of the [dependency
 > chain](http://lhcb-comp.web.cern.ch/lhcb-comp/).
 
-You can now modify the `StrippingSelections` package and run `make purge && make` to build it with your changes.
-You can test your changes with the `./run` script.
-It works similar to `lb-run`, without the need to specify a package and version:
+You can now modify the `StrippingSelections` package and run `make purge &&
+make` to build it with your changes.  You can test your changes with the
+`./run` script.  It works similar to `lb-run`, without the need to specify a
+package and version:
 ```bash
 ./run gaudirun.py options.py
 ```
@@ -208,39 +207,39 @@ example
 > You can use the URL in the message to quickly create a merge request for the
 > changes you just pushed.
 
-When your merge request is approved (which can be after some additional commits on your part), your changes are part of the `master` branch of the respective project, and your contributions are officially part of the LHCb software stack. Congratulations!
+When your merge request is approved (which can be after some additional commits
+on your part), your changes are part of the `master` branch of the respective
+project, and your contributions are officially part of the LHCb software stack.
+Congratulations!
 
-## Nightlies
-
-It is advisable to test new developments on the so-called [nightly
-builds](https://lhcb-nightlies.cern.ch). Each project is built overnight (hence
-the name), and all pending merge requests are applied. You can use a nightly
-build version of a project with:
-
-```bash
-lb-dev --nightly lhcb-head DaVinci/HEAD
-```
-
-A more detailed description of the command is found here:
-
- * [SoftwareEnvTools](https://twiki.cern.ch/twiki/bin/view/LHCb/SoftwareEnvTools)
-
-Sometimes mistakes happen and the committed code is either not compiling or
-does not do what it is supposed to do.  Therefore the nightly tests are
-performed. They first try to build the full software stack.
-
-If that is successful, they run some reference jobs and compare the output of
-the new build with a reference file.  The results of the nightly builds can be
-found here.
-
-* [Nightly builds summaries](https://lhcb-nightlies.cern.ch)
-
-If the aim of the commit was to change the ouput, e.g. because you increased
-the track reconstruction efficiency by a factor of two, mention it in the merge
-request description, such that the manager of the affected project can update
-the reference file.
-
-## Finding stuff
+> ## Nightlies {.callout}
+> It is advisable to test new developments on the so-called [nightly
+> builds](https://lhcb-nightlies.cern.ch). Each project is built overnight
+> (hence the name), and all pending merge requests are applied. You can use a
+> nightly build version of a project with:
+>
+> ```bash
+> lb-dev --nightly lhcb-head DaVinci/HEAD
+> ```
+>
+> A more detailed description of the command is found here:
+>
+>  * [SoftwareEnvTools](https://twiki.cern.ch/twiki/bin/view/LHCb/SoftwareEnvTools)
+>
+> Sometimes mistakes happen and the committed code is either not compiling or
+> does not do what it is supposed to do.  Therefore the nightly tests are
+> performed. They first try to build the full software stack.
+>
+> If that is successful, they run some reference jobs and compare the output of
+> the new build with a reference file.  The results of the nightly builds can
+> be found here.
+>
+> * [Nightly builds summaries](https://lhcb-nightlies.cern.ch)
+>
+> If the aim of the commit was to change the ouput, e.g. because you increased
+> the track reconstruction efficiency by a factor of two, mention it in the
+> merge request description, such that the manager of the affected project can
+> update the reference file.
 
 If you want to take a look the source code, without checking it out, you can
 easily access the repository through the [Gitlab web
@@ -265,31 +264,30 @@ sites, like
 See also the the [LHCb Computing web page](http://cern.ch/lhcb-comp/) for a
 list of projects.
 
-## Working with a full project checkout
-
-The `lb-git` commands are not strictly necessary, but they're very convenient
-if you just want to quickly edit one package. Otherwise you'd have to build the
-    entire project in which the package is residing, instead of using the
-    precompiled version. However, if you develop across multiple packages, or
-    want to use more sophisticated `git` commands, nothing prevents you from
-    checking out an entire project – just don't be surprised if it takes
-    O(hours) to compile!
-
-To check out a project, run the following:
-
-```bash
-git clone https://:@gitlab.cern.ch:8443/lhcb/DaVinci.git
-```
-
-replacing `DaVinci` with the project name of your choice. Next, initialise and
-compile it:
-
-```bash
-lb-project-init
-make
-```
-
-optionally followed by `make test` to run the tests and/or `make install` to
-install it to the `InstallArea` directory. That's all! You now have a vanilla
-git repository containing all the source files of the project.
+> ## Working with a full project checkout {.callout}
+> The `lb-git` commands are not strictly necessary, but they're very convenient
+> if you just want to quickly edit one package. Otherwise you'd have to build
+> the entire project in which the package is residing, instead of using the
+> precompiled version. However, if you develop across multiple packages, or
+> want to use more sophisticated `git` commands, nothing prevents you from
+> checking out an entire project – just don't be surprised if it takes O(hours)
+> to compile!
+>
+> To check out a project, run the following:
+>
+> ```bash
+> git clone https://:@gitlab.cern.ch:8443/lhcb/DaVinci.git
+> ```
+>
+> replacing `DaVinci` with the project name of your choice. Next, initialise
+> and compile it:
+>
+> ```bash
+> lb-project-init make
+> ```
+>
+> optionally followed by `make test` to run the tests and/or `make install` to
+> install it to the `InstallArea` directory. That's all! You now have a vanilla
+> git repository containing all the source files of the project.
+>
 
