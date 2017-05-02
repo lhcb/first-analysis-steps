@@ -33,9 +33,12 @@ repositories:
  modification of a few packages at a time.  (This is closer to the previously
  used `getpack` command.)
 
-Here, we want to focus on the second workflow. The second workflow will be
+Here, we want to focus on the second workflow. The first workflow will be
 discussed briefly at the [bottom](#working-with-a-full-project-checkout) of
-this page.
+this page. Note that, although the lb-git commands are much easier for small
+changes to existing packages where recompiling an entire project would be
+cumbersome, for any serious development the usage of vanilla git is much more
+stable. Please consider using it if you can spare the compilation time.
 
 > ## Initial setup {.callout}
 > Before jumping in by creating a project in Gitlab, you should make sure that
