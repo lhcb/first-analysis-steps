@@ -15,10 +15,9 @@ This lesson will teach you how to take our [minimal DaVinci
 job](minimal-dv-job.html) and run it on the grid.
 
 `ganga` is a program which you can use to interact with your grid
-jobs. Start it with:
+jobs, it is automatically included in the LHCb environment. Start it with:
 
 ```bash
-$ SetupProject Ganga
 $ ganga
 ```
 
