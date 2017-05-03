@@ -36,7 +36,7 @@
           <h2 class="subtitle">More Ganga</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -49,40 +49,40 @@
 </div>
 </div>
 <p>The input data can be specified for your job with the BKQuery tool. The path for the data can be found using the online Dirac portal and passed to the <code>BKQuery</code> to get the dataset. For example, to run over the Stripping 21 MagUp, Semileptonic stream</p>
-<pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">3</span>]: j.inputdata = BKQuery(<span class="st">&#39;/LHCb/Collision12/Beam4000GeV-VeloClosed-MagUp/Real Data/Reco14/Stripping21r0p1a/90000000/SEMILEPTONIC.DST&#39;</span>).getDataset()
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">3</span>]: j.inputdata <span class="op">=</span> BKQuery(<span class="st">&#39;/LHCb/Collision12/Beam4000GeV-VeloClosed-MagUp/Real Data/Reco14/Stripping21r0p1a/90000000/SEMILEPTONIC.DST&#39;</span>).getDataset()
 Ganga In [<span class="dv">4</span>]: j.inputdata
 Ganga Out [<span class="dv">4</span>]: 
  LHCbDataset (
-   depth = <span class="dv">0</span>,
-   treat_as_inputfiles = <span class="ot">False</span>,
-   persistency = <span class="ot">None</span>,
-   files = [<span class="dv">3717</span> Entries of <span class="dt">type</span> <span class="st">&#39;DiracFile&#39;</span>] ,
-   XMLCatalogueSlice =    LocalFile (
-     namePattern = ,
-     compressed = <span class="ot">False</span>,
-     localDir = 
+   depth <span class="op">=</span> <span class="dv">0</span>,
+   treat_as_inputfiles <span class="op">=</span> <span class="va">False</span>,
+   persistency <span class="op">=</span> <span class="va">None</span>,
+   files <span class="op">=</span> [<span class="dv">3717</span> Entries of <span class="bu">type</span> <span class="st">&#39;DiracFile&#39;</span>] ,
+   XMLCatalogueSlice <span class="op">=</span>    LocalFile (
+     namePattern <span class="op">=</span> ,
+     compressed <span class="op">=</span> <span class="va">False</span>,
+     localDir <span class="op">=</span> 
    ) 
- )</code></pre>
+ )</code></pre></div>
 <p>This is a list of <code>DiracFile</code>, the Ganga object for files stored on the grid. We can access one locally via the <code>accessURL</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">5</span>]: j.inputdata[<span class="dv">0</span>].accessURL()
-Ganga Out [<span class="dv">5</span>]: [<span class="st">&#39;root://bw32-4.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/SEMILEPTONIC.DST/00051179/0000/00051179_00006978_1.semileptonic.dst&#39;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">Ganga In [<span class="dv">5</span>]: j.inputdata[<span class="dv">0</span>].accessURL()
+Ganga Out [<span class="dv">5</span>]: [<span class="st">&#39;root://bw32-4.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/SEMILEPTONIC.DST/00051179/0000/00051179_00006978_1.semileptonic.dst&#39;</span>]</code></pre></div>
 <p>The returned path can be used by Bender to explore the contents of the DST, as in the <a href="interactive-dst.html">Interactively exploring a DST</a> lesson.</p>
 <p>In the previous lesson we looked at the location of the ouput with <code>job(782).outputdir</code>. This location points us to the <code>gangadir</code> where ganga stores information about the jobs and the output. If we have lots of jobs with large files the file system where the gangadir is located will quickly fill up.</p>
 <div id="setting-the-gangadir-location" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Setting the gangadir location</h2>
+<h2 id="setting-the-gangadir-location" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Setting the gangadir location</h2>
 </div>
 <div class="panel-body">
 <p>The location of the <code>gangadir</code> can be changed in the configuration file '~/.gangarc'. Just search for the <code>gangadir</code> attribute and change it to where you like (on the CERN AFS the <code>work</code> area is a popular choice).</p>
 </div>
 </div>
-<p>To avoid filling up the filespace it is wise to put the large files produced by your job somewhere with lots of storge - the grid. You can do so by setting the <code>outputfiles</code> attribute:</p>
-<pre class="sourceCode python"><code class="sourceCode python">j.outputfiles = [DiracFile(<span class="st">&#39;*.root&#39;</span>), LocalFile(<span class="st">&#39;stdout&#39;</span>)]</code></pre>
+<p>To avoid filling up the filespace it is wise to put the large files produced by your job somewhere with lots of storage - the grid. You can do so by setting the <code>outputfiles</code> attribute:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">j.outputfiles <span class="op">=</span> [DiracFile(<span class="st">&#39;*.root&#39;</span>), LocalFile(<span class="st">&#39;stdout&#39;</span>)]</code></pre></div>
 <p>The <code>DiracFile</code> will be stored in your user area on the grid (with up to 2TB personal capacity) from where you can access it with the <code>accessURL()</code> function as before. The wildcard means that any root file produced by your job will stay on the grid. <code>LocalFile</code> downloads the file to your <code>gangadir</code>, in this case the one called <code>stdout</code>.</p>
 <p>Small files are downloaded as standard: <code>.root</code>, logfiles etc. Files that are expected to be large which have extensions .dst etc are by default kept on the grid as Dirac files. In general you are encouraged to keep your large files on the grid to avoid moving large amounts of data around through your work area.</p>
 <div id="getting-help-with-ganga" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Getting help with ganga</h2>
+<h2 id="getting-help-with-ganga" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Getting help with ganga</h2>
 </div>
 <div class="panel-body">
 <p>To find out more take a look at the <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/FAQ/GangaLHCbFAQ">Ganga FAQ</a></p>

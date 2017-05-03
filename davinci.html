@@ -36,7 +36,7 @@
           <h2 class="subtitle">An introduction to LHCb Software</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -64,7 +64,7 @@
 <p>You can find comprehensive documentation in the <a href="https://proj-gaudi.web.cern.ch/proj-gaudi/releases/latest/doxygen/">Gaudi Doxygen</a> or the <a href="http://lhcb-comp.web.cern.ch/lhcb-comp/Frameworks/Gaudi/Gaudi_v9/GUG/GUG.pdf">Gaudi Manual</a>.</p>
 <p>Usually, you will work with one of the LHCb software projects that are based on Gaudi. One of the most important ones is <em>DaVinci</em>, which provides lots of <em>Algorithms</em> and <em>Tools</em> for physics analysis.</p>
 <p>You can run DaVinci using the following command:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> DaVinci/v41r2 gaudirun.py</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> DaVinci/v41r2 gaudirun.py</code></pre></div>
 <p>This will run the <code>gaudirun.py</code> command using version v41r2 of DaVinci. <code>gaudirun.py</code> is a script that sets up the EventLoop. You should get the following output:</p>
 <pre><code># setting LC_ALL to &quot;C&quot;
 ApplicationMgr    SUCCESS
@@ -84,22 +84,22 @@ ToolSvc              INFO Removing all tools created by ToolSvc
 ApplicationMgr       INFO Application Manager Finalized successfully
 ApplicationMgr       INFO Application Manager Terminated successfully</code></pre>
 <p>During this run, DaVinci didn't do anything: We didn't specify any algorithms to run or any data to run over. Usually, you will write an option file (e.g. <code>options.py</code>) and specify it as an argument to <code>gaudirun.py</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> DaVinci/v41r2 gaudirun.py options.py</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> DaVinci/v41r2 gaudirun.py options.py</code></pre></div>
 <p>An <code>option.py</code> is just a regular Python script that specifies how to set things up in the software. Many of the following lessons will teach you how to do something with DaVinci by showing you how to write or extend an <code>options.py</code>. You can use the above command to test it. You can also specify several option files like this:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> DaVinci/v41r2 gaudirun.py options1.py options2.py</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> DaVinci/v41r2 gaudirun.py options1.py options2.py</code></pre></div>
 <p>They will then both be used to set up DaVinci.</p>
 <p>Do you want to get an overview of which versions of DaVinci exist? Use</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> --list DaVinci</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> --list DaVinci</code></pre></div>
 <p>Do you want to start a shell that already contains the LHCb environment, so you don't have to use <code>lb-run</code>? Execute</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> DaVinci/v41r2 <span class="ot">$SHELL</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> DaVinci/v41r2 <span class="va">$SHELL</span></code></pre></div>
 <p>A simple <code>gaudirun.py</code> should work as well now. Typing <code>exit</code> will close the shell and leave the LHCb environment behind.</p>
 <div id="using-setupproject-instead-of-lb-run" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Using SetupProject instead of lb-run</h2>
+<h2 id="using-setupproject-instead-of-lb-run" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Using SetupProject instead of lb-run</h2>
 </div>
 <div class="panel-body">
 <p>When reading through other tutorials, you will come across <code>SetupProject</code>. This is an older way of setting up a shell that is configured to run LHCb software. <code>lb-run</code> is the new way of doing things and has some nice benefits over <code>SetupProject</code>. For most purposes, <code>SetupProject DaVinci v41r2</code> is equivalent to</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">lb-run</span> DaVinci/v41r2 <span class="ot">$SHELL</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">lb-run</span> DaVinci/v41r2 <span class="va">$SHELL</span></code></pre></div>
 </div>
 </div>
         </div>

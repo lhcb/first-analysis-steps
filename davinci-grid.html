@@ -36,7 +36,7 @@
           <h2 class="subtitle">Running DaVinci on the grid</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -49,21 +49,21 @@
 </div>
 <p>This lesson will teach you how to take our <a href="minimal-dv-job.html">minimal DaVinci job</a> and run it on the grid.</p>
 <p><code>ganga</code> is a program which you can use to interact with your grid jobs. Start it with:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">SetupProject</span> Ganga
-$ <span class="kw">ganga</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">SetupProject</span> Ganga
+$ <span class="ex">ganga</span></code></pre></div>
 <p>After <code>ganga</code> has started you will be dropped into something that looks very much like an <code>ipython</code> session. <code>ganga</code> is built on top of <code>ipython</code> so you can type anything that is legal <code>python</code> in addition to some special commands provided by <code>ganga</code>.</p>
 <p>To create your first <code>ganga</code> job type the following:</p>
-<pre class="sourceCode python"><code class="sourceCode python">j = Job(name=<span class="st">&#39;First ganga job&#39;</span>)
-myApp = prepareGaudiExec(<span class="st">&#39;DaVinci&#39;</span>,<span class="st">&#39;v41r2&#39;</span>, myPath=<span class="st">&#39;.&#39;</span>)
-j.application = myApp
-j.application.options = [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">j <span class="op">=</span> Job(name<span class="op">=</span><span class="st">&#39;First ganga job&#39;</span>)
+myApp <span class="op">=</span> prepareGaudiExec(<span class="st">&#39;DaVinci&#39;</span>,<span class="st">&#39;v41r2&#39;</span>, myPath<span class="op">=</span><span class="st">&#39;.&#39;</span>)
+j.application <span class="op">=</span> myApp
+j.application.options <span class="op">=</span> [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
 j.application.readInputData(<span class="st">&#39;data/MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py&#39;</span>)
-j.backend = Dirac()
-j.outputfiles = [LocalFile(<span class="st">&#39;DVntuple.root&#39;</span>)]</code></pre>
+j.backend <span class="op">=</span> Dirac()
+j.outputfiles <span class="op">=</span> [LocalFile(<span class="st">&#39;DVntuple.root&#39;</span>)]</code></pre></div>
 <p>This will create a <code>Job</code> object that will execute <code>DaVinci</code> configured with the option files given in <code>j.application.options</code> using a backend called <code>Dirac</code>, which is &quot;the grid&quot;. Instead of specifying the files to process as part of the options file you have now to tell the <code>Job</code> about it. This allows <code>ganga</code> to split your job up, processing different files simultaneously.</p>
 <div id="davincidev-folder" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>DaVinciDev folder</h2>
+<h2 id="davincidev-folder" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>DaVinciDev folder</h2>
 </div>
 <div class="panel-body">
 <p>When you create a job using <code>prepareGaudiExec('DaVinci','v41r2', myPath='.')</code> you get the following message:</p>
@@ -74,22 +74,22 @@ j.outputfiles = [LocalFile(<span class="st">&#39;DVntuple.root&#39;</span>)]</co
 <p>Now you have created your first job, however it has not started running yet. To submit it type <code>j.submit()</code>. Now <code>ganga</code> will do the equivalent of <code>lb-run DaVinci v41r2</code>, prepare your job and then ship it off to the grid.</p>
 <p>While it runs, let's submit an identical job via slightly different method. Having to type in the details of each job every time you want to run it is error prone and tedious. Instead you can place all the lines that define a job in a file and simply run that.</p>
 <p>Place the following in a file called <a href="code/davinci-grid/first-job.py"><code>first-job.py</code></a>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">j = Job(name=<span class="st">&#39;First ganga job&#39;</span>)
-myApp = GaudiExec()
-myApp.directory = <span class="st">&quot;./DaVinciDev_v41r2&quot;</span>
-j.application = myApp
-j.application.options = [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">j <span class="op">=</span> Job(name<span class="op">=</span><span class="st">&#39;First ganga job&#39;</span>)
+myApp <span class="op">=</span> GaudiExec()
+myApp.directory <span class="op">=</span> <span class="st">&quot;./DaVinciDev_v41r2&quot;</span>
+j.application <span class="op">=</span> myApp
+j.application.options <span class="op">=</span> [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
 j.application.readInputData(<span class="st">&#39;data/MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py&#39;</span>)
-j.backend = Dirac()
-j.outputfiles = [LocalFile(<span class="st">&#39;DVntuple.root&#39;</span>)]
-j.submit()</code></pre>
+j.backend <span class="op">=</span> Dirac()
+j.outputfiles <span class="op">=</span> [LocalFile(<span class="st">&#39;DVntuple.root&#39;</span>)]
+j.submit()</code></pre></div>
 <p>Which you can execute and submit like so, from within a <code>ganga</code> session:</p>
-<pre class="sourceCode python"><code class="sourceCode python">%ganga first-job.py</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="op">%</span>ganga first<span class="op">-</span>job.py</code></pre></div>
 <p>This will print output similar to submitting the job from with in <code>ganga</code>.</p>
 <p>You can check on your jobs by typing <code>jobs</code> into a <code>ganga</code> console. This will list all of your jobs, their status, what kind of application they are and more.</p>
 <p>You can get more detailed information about your job by typing <code>jobs($jobid)</code>, replacing <code>$jobid</code> with the <code>id</code> of the job you are interested in. For concretness we will assume you are interested in a job with jobid 787 in this example.</p>
 <p>Once your job has finished its status will be <code>completed</code>. Check this by typing <code>jobs</code> or by printing out the status of one particular job:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="dt">print</span> <span class="st">&#39;Status of my job:&#39;</span>, jobs(<span class="dv">787</span>).status</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span> <span class="st">&#39;Status of my job:&#39;</span>, jobs(<span class="dv">787</span>).status</code></pre></div>
 <p>The next thing to do is to find the output of your job. Two things can happen to files your job creates:</p>
 <ul>
 <li>They get downloaded by <code>ganga</code>, or</li>
@@ -97,24 +97,24 @@ j.submit()</code></pre>
 </ul>
 <p>By default <code>ganga</code> will download most files below a size of XX MB. The rest will remain on the grid. Log files will almost always be downloaded.</p>
 <p>To find where the files <code>ganga</code> downloaded are you can check the <code>outputdir</code> property of your job.</p>
-<pre class="sourceCode python"><code class="sourceCode python">output = jobs(<span class="dv">787</span>).outputdir
-<span class="dt">print</span> <span class="st">&#39;Job output stored in:&#39;</span>, output</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">output <span class="op">=</span> jobs(<span class="dv">787</span>).outputdir
+<span class="bu">print</span> <span class="st">&#39;Job output stored in:&#39;</span>, output</code></pre></div>
 <p>Take a look at the contents of this directory.</p>
 <div id="using-the-shell-from-ipython" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Using the Shell from IPython</h2>
+<h2 id="using-the-shell-from-ipython" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Using the Shell from IPython</h2>
 </div>
 <div class="panel-body">
 <p>IPython lets you execute shell commands from within the <code>ganga</code> session. This means you can list the contents of a directory without leaving ganga by typing <code>!ls /tmp/</code>. This will list the contents of the <code>/tmp</code> directory. In our case we can use this to list the contents of the job output directory with <code>!ls $output</code> as we stored the path in the variable <code>output</code>.</p>
 </div>
 </div>
 <p>To look at the <code>root</code> file produced by the job start a new terminal, and type:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">lb-run</span> DaVinci/v41r2 <span class="ot">$SHELL</span>
-$ <span class="kw">root</span> -l path/to/the/job/output</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">lb-run</span> DaVinci/v41r2 <span class="va">$SHELL</span>
+$ <span class="ex">root</span> -l path/to/the/job/output</code></pre></div>
 <p>You need to setup <code>DaVinci</code> as we need ROOT version 6 to read the nTuple.</p>
 <div id="getting-help-with-ganga" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Getting help with ganga</h2>
+<h2 id="getting-help-with-ganga" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Getting help with ganga</h2>
 </div>
 <div class="panel-body">
 <p>To find out more take a look at the <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/FAQ/GangaLHCbFAQ">Ganga FAQ</a></p>

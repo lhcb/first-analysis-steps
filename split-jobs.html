@@ -36,7 +36,7 @@
           <h2 class="subtitle">Splitting a job into subjobs</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -48,38 +48,38 @@
 <p><code>ganga</code> provides several <em>splitters</em> that implement strategies for processing data in parallel. The one we will use now is <code>SplitByFiles</code>, which spawns several subjobs, each of which only processes a certain number of files.</p>
 <p>Apart from processing data faster, this will also allow you to work with datasets that are spread across several sites of the LHC grid. This is because a job can only access datasets that are available on the site that it runs on.</p>
 <p>To activate a splitter, assign it to the <code>.splitter</code> attribute of your job:</p>
-<pre class="sourceCode python"><code class="sourceCode python">j.splitter = SplitByFiles(filesPerJob=<span class="dv">5</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">j.splitter <span class="op">=</span> SplitByFiles(filesPerJob<span class="op">=</span><span class="dv">5</span>)</code></pre></div>
 <p>Note that the specified number of files per job is only the allowed maximum. You will often get jobs with fewer files.</p>
 <div id="how-do-i-choose-the-number-of-files-per-job" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>How do I choose the number of files per job?</h2>
+<h2 id="how-do-i-choose-the-number-of-files-per-job" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>How do I choose the number of files per job?</h2>
 </div>
 <div class="panel-body">
 <p>Choose fewer files per job if possible, as this will allow you to finish sooner and reduces the impact of jobs failing due to grid problems. Setting <code>filesPerJob=5</code> should work well for real data, while <code>filesPerJob=1</code> should be good for signal MC.</p>
 </div>
 </div>
 <p>Now, when you run <code>j.submit()</code>, the job will automatically be split into several subjobs. These can be displayed by entering</p>
-<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs</code></pre></div>
 <p>in <code>ganga</code>, where you have to replace 787 with the <code>id</code> of your main job.</p>
 <p>You can access individual subjobs as in <code>jobs(787).subjobs(2)</code>. For example, to resubmit a failed subjob, you would run</p>
-<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">2</span>).resubmit()</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">2</span>).resubmit()</code></pre></div>
 <p>To access several subjobs at once, you can use the <code>.select</code> method:</p>
-<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs.select(status=<span class="st">&#39;failed&#39;</span>).resubmit()</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs.select(status<span class="op">=</span><span class="st">&#39;failed&#39;</span>).resubmit()</code></pre></div>
 <p>This will resubmit all failed subjobs.</p>
 <p>If you want to do something more complex with each subjob, a regular <code>for</code>-loop can be used as well:</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="kw">for</span> j in jobs(<span class="dv">787</span>).subjobs:
-    <span class="dt">print</span>(j.<span class="dt">id</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> j <span class="kw">in</span> jobs(<span class="dv">787</span>).subjobs:
+    <span class="bu">print</span>(j.<span class="bu">id</span>)</code></pre></div>
 <p>It's possible that some of your subjobs will be stuck in a certain state (submitting/completing/...). If that is the case, try to reset the Dirac backend:</p>
-<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).backend.reset()</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).backend.reset()</code></pre></div>
 <p>If that doesn't help, try failing the job and resubmitting:</p>
-<pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).force_status(<span class="st">&#39;failed&#39;</span>)
-jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).resubmit()</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).force_status(<span class="st">&#39;failed&#39;</span>)
+jobs(<span class="dv">787</span>).subjobs(<span class="dv">42</span>).resubmit()</code></pre></div>
 <p>It can take quite a while to submit all of your subjobs. If you want to continue working in ganga while submitting jobs, you can use the <code>queues</code> feature to do just that. Simply call <code>queues.add</code> with the <code>submit</code> function of a job without adding parentheses, like this:</p>
 <pre><code>queues.add(j.submit)</code></pre>
 <p>Ganga will then submit this job (and its subjobs) in the background. Make sure not to close <code>ganga</code> before the submission is finished, or you will have to start submitting the rest of the jobs again later on.</p>
 <div id="splitting-your-first-job" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Splitting your first job</h2>
+<h2 id="splitting-your-first-job" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Splitting your first job</h2>
 </div>
 <div class="panel-body">
 <p>Try splitting the <code>ganga</code> job from our previous lesson with <code>splitByFiles=1</code> (<a href="code/split-jobs/first-job.py">reference code</a>) and submit it with <code>ganga</code>.</p>

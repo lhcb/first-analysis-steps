@@ -36,7 +36,7 @@
           <h2 class="subtitle">Storing large files on EOS</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -46,33 +46,35 @@
 </div>
 </div>
 <p>During a real analysis the output of your jobs will quickly grow beyond what fits onto your AFS space. CERN provides you with 2TB of space on a set of hard drives called the <a href="http://information-technology.web.cern.ch/services/eos-service">EOS service</a> and a grid storage quota of 2TB.</p>
-<p>To retrieve a job outputfile, one can use three types of files:<br />- <code>LocalFile</code>: the standard one with the output file directly downloaded to the <code>gangadir</code>.<br />- <code>DiracFile</code>: the output file is stored directly on the grid and be accessed through the XRootD protocol.</p>
+<p>To retrieve a job outputfile, one can use three types of files:<br />
+- <code>LocalFile</code>: the standard one with the output file directly downloaded to the <code>gangadir</code>.<br />
+- <code>DiracFile</code>: the output file is stored directly on the grid and be accessed through the XRootD protocol.</p>
 <p>In this lesson, we will focus on the use of <code>DiracFile</code> in <code>ganga</code> to manage big output files.</p>
 <p>We can reuse what has been done to run <a href="https://lhcb.github.io/first-analysis-steps/davinci-grid.html">a DaVinci job on the grid</a> and adapt the <code>j.outputfiles</code> part.</p>
 <p>To add the DiracFile in the configuration of the job we just need:</p>
-<pre class="sourceCode python"><code class="sourceCode python">j = Job(name=<span class="st">&#39;First ganga job&#39;</span>)
-myApp = GaudiExec()
-myApp.directory = <span class="st">&quot;./DaVinciDev_v41r2&quot;</span>
-j.application = myApp
-j.application.options = [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">j <span class="op">=</span> Job(name<span class="op">=</span><span class="st">&#39;First ganga job&#39;</span>)
+myApp <span class="op">=</span> GaudiExec()
+myApp.directory <span class="op">=</span> <span class="st">&quot;./DaVinciDev_v41r2&quot;</span>
+j.application <span class="op">=</span> myApp
+j.application.options <span class="op">=</span> [<span class="st">&#39;code/davinci-grid/ntuple_options_grid.py&#39;</span>]
 j.application.readInputData(<span class="st">&#39;data/MC_2012_27163003_Beam4000GeV2012MagDownNu2.5Pythia8_Sim08e_Digi13_Trig0x409f0045_Reco14a_Stripping20NoPrescalingFlagged_ALLSTREAMS.DST.py&#39;</span>)
-j.backend = Dirac()
-j.outputfiles = [
+j.backend <span class="op">=</span> Dirac()
+j.outputfiles <span class="op">=</span> [
     DiracFile(<span class="st">&#39;DVntuple.root&#39;</span>)
 ]
-j.submit()</code></pre>
+j.submit()</code></pre></div>
 <p>When the job is completed, no output is dowloaded but some interesting information are provided by typing <code>j.outputfiles[0]</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">DiracFile(namePattern=<span class="st">&#39;DVntuple.root&#39;</span>,
-          lfn=<span class="st">&#39;/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&#39;</span>,
-          localDir=<span class="st">&#39;/afs/cern.ch/user/a/another/gangadir/workspace/another/LocalXML/129/output&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">DiracFile(namePattern<span class="op">=</span><span class="st">&#39;DVntuple.root&#39;</span>,
+          lfn<span class="op">=</span><span class="st">&#39;/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&#39;</span>,
+          localDir<span class="op">=</span><span class="st">&#39;/afs/cern.ch/user/a/another/gangadir/workspace/another/LocalXML/129/output&#39;</span>)</code></pre></div>
 <p>Apart from the <code>namePattern</code> which was set during the configuration of the job, we can retrieve the <code>localDir</code> which is the path in your gangadir to the output of the job and its <code>lfn</code> which stands for Logical File Name.</p>
 <p>This LFN can then be given as an argument in order to download the file. But more important in most of the cases, you don't even need to download the file thanks to the <code>accessURL</code> function which will give you the URL of your output file by typing <code>j.outputfiles[0].accessURL()</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">[<span class="st">&#39;root://eoslhcb.cern.ch//eos/lhcb/grid/user/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&#39;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">[<span class="st">&#39;root://eoslhcb.cern.ch//eos/lhcb/grid/user/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&#39;</span>]</code></pre></div>
 <p>This URL can be directly used in your ROOT script with the help of the XRootD protocol as follows:</p>
-<pre class="sourceCode python"><code class="sourceCode python">TFile::Open(<span class="st">&quot;root://eoslhcb.cern.ch//eos/lhcb/grid/user/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&quot;</span>)  </code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">TFile::Open(<span class="st">&quot;root://eoslhcb.cern.ch//eos/lhcb/grid/user/lhcb/user/a/another/2016_11/146255/146255492/DVntuple.root&quot;</span>)  </code></pre></div>
 <div id="use-of-the-xrootd-protocol" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Use of the XRootD protocol</h2>
+<h2 id="use-of-the-xrootd-protocol" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Use of the XRootD protocol</h2>
 </div>
 <div class="panel-body">
 <p>In order to access files on every grid site with the XRootD protocol, be sure to have a valid proxy using <code>lhcb-proxy-init</code>.</p>
@@ -80,28 +82,28 @@ j.submit()</code></pre>
 </div>
 <div id="deprecation-of-the-use-of-massstoragefile" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Deprecation of the use of MassStorageFile</h2>
+<h2 id="deprecation-of-the-use-of-massstoragefile" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Deprecation of the use of MassStorageFile</h2>
 </div>
 <div class="panel-body">
 <p>The use of <code>MassStorageFile</code> is deprecated as it is quite sensitive to network problems when ganga is downloading the output of the job to EOS.</p>
 </div>
 </div>
 <p><code>ganga</code> needs configuring in order to know which files to store on EOS, as well as where on EOS to store them. Open <code>~/.gangarc</code> in your favourite editor and look for a line that starts with <code>MassStorageFile</code>. In <code>ganga</code> a <code>MassStorageFile</code> represents a file stored on something like EOS or CASTOR. Change it to look like the following:</p>
-<pre class="sourceCode python"><code class="sourceCode python">MassStorageFile = {<span class="st">&#39;fileExtensions&#39;</span>: [<span class="st">&#39;&#39;</span>],
-                   <span class="co">&#39;uploadOptions&#39;</span>: {<span class="st">&#39;path&#39;</span>: <span class="st">&#39;/eos/lhcb/user/a/another&#39;</span>,
-                                     <span class="co">&#39;cp_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select cp&#39;</span>,
-                                     <span class="co">&#39;ls_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select ls&#39;</span>,
-                                     <span class="co">&#39;mkdir_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select mkdir&#39;</span>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">MassStorageFile <span class="op">=</span> {<span class="st">&#39;fileExtensions&#39;</span>: [<span class="st">&#39;&#39;</span>],
+                   <span class="st">&#39;uploadOptions&#39;</span>: {<span class="st">&#39;path&#39;</span>: <span class="st">&#39;/eos/lhcb/user/a/another&#39;</span>,
+                                     <span class="st">&#39;cp_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select cp&#39;</span>,
+                                     <span class="st">&#39;ls_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select ls&#39;</span>,
+                                     <span class="st">&#39;mkdir_cmd&#39;</span>: <span class="st">&#39;/afs/cern.ch/project/eos/installation/lhcb/bin/eos.select mkdir&#39;</span>
                                     },
-                   <span class="co">&#39;backendPostprocess&#39;</span>: {<span class="st">&#39;LSF&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;Dirac&#39;</span>: <span class="st">&#39;client&#39;</span>,
-                                          <span class="co">&#39;LCG&#39;</span>: <span class="st">&#39;client&#39;</span>, <span class="st">&#39;ARC&#39;</span>: <span class="st">&#39;client&#39;</span>, 
-                                          <span class="co">&#39;CREAM&#39;</span>: <span class="st">&#39;client&#39;</span>, <span class="st">&#39;Localhost&#39;</span>: <span class="st">&#39;WN&#39;</span>,
-                                          <span class="co">&#39;Interactive&#39;</span>: <span class="st">&#39;client&#39;</span>}
-                  }</code></pre>
+                   <span class="st">&#39;backendPostprocess&#39;</span>: {<span class="st">&#39;LSF&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;Dirac&#39;</span>: <span class="st">&#39;client&#39;</span>,
+                                          <span class="st">&#39;LCG&#39;</span>: <span class="st">&#39;client&#39;</span>, <span class="st">&#39;ARC&#39;</span>: <span class="st">&#39;client&#39;</span>, 
+                                          <span class="st">&#39;CREAM&#39;</span>: <span class="st">&#39;client&#39;</span>, <span class="st">&#39;Localhost&#39;</span>: <span class="st">&#39;WN&#39;</span>,
+                                          <span class="st">&#39;Interactive&#39;</span>: <span class="st">&#39;client&#39;</span>}
+                  }</code></pre></div>
 <p>The line should look very similar to this already, the only thing that needs changing is the <code>path</code> entry. You should change it to your EOS home directory which is <code>/eos/lhcb/user/a/another</code> if your username is <code>another</code>.</p>
 <div id="automatically-transfer-files" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Automatically transfer files</h2>
+<h2 id="automatically-transfer-files" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Automatically transfer files</h2>
 </div>
 <div class="panel-body">
 <p>You can use the <code>fileExtensions</code> entry to specify a list of file extensions that should be transfered to EOS by default. For the moment leave this set to <code>['']</code>.</p>
@@ -109,24 +111,24 @@ j.submit()</code></pre>
 </div>
 <p>Related to this there is an entry for <code>DiracFiles</code>, which represent files stored on the Grid. By default any file ending in <code>.dst</code> will not be downloaded nor stored on EOS. It will be stored on some storage element on the Grid. For files which you do not plan to work with interactively and instead feed into a different grid job it makes sense to leave them on the grid.</p>
 <p>Note that EOS is 'Grid storage', specifically that which is located at CERN. Your personal space, at /eos/lhcb/user/<your username's first letter>/<your username>, is just another location on EOS, and happens to be different to the default location used by DIRAC for 'grid storage'.</p>
-<pre class="sourceCode python"><code class="sourceCode python">DiracFile = {<span class="st">&#39;fileExtensions&#39;</span>: [<span class="st">&#39;*.dst&#39;</span>],
-             <span class="co">&#39;uploadOptions&#39;</span>: {},
-             <span class="co">&#39;backendPostprocess&#39;</span>: {<span class="st">&#39;LSF&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;Dirac&#39;</span>: <span class="st">&#39;WN&#39;</span>,
-                                    <span class="co">&#39;LCG&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;CREAM&#39;</span>: <span class="st">&#39;WN&#39;</span>,
-                                    <span class="co">&#39;Localhost&#39;</span>: <span class="st">&#39;WN&#39;</span>,
-                                    <span class="co">&#39;Interactive&#39;</span>: <span class="st">&#39;WN&#39;</span>}
-            }</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">DiracFile <span class="op">=</span> {<span class="st">&#39;fileExtensions&#39;</span>: [<span class="st">&#39;*.dst&#39;</span>],
+             <span class="st">&#39;uploadOptions&#39;</span>: {},
+             <span class="st">&#39;backendPostprocess&#39;</span>: {<span class="st">&#39;LSF&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;Dirac&#39;</span>: <span class="st">&#39;WN&#39;</span>,
+                                    <span class="st">&#39;LCG&#39;</span>: <span class="st">&#39;WN&#39;</span>, <span class="st">&#39;CREAM&#39;</span>: <span class="st">&#39;WN&#39;</span>,
+                                    <span class="st">&#39;Localhost&#39;</span>: <span class="st">&#39;WN&#39;</span>,
+                                    <span class="st">&#39;Interactive&#39;</span>: <span class="st">&#39;WN&#39;</span>}
+            }</code></pre></div>
 <p>Now that <code>ganga</code> is configured we will modify the <a href="minimal-dv-job.html">minimal DaVinci job</a> to store the nTuple it produces on EOS.</p>
 <p>Make a copy of <code>first-job.py</code> and add the following three lines before the <code>j.submit()</code> line:</p>
-<pre class="sourceCode python"><code class="sourceCode python">f = MassStorageFile(<span class="st">&#39;DVntuple.root&#39;</span>)
-f.outputfilenameformat = <span class="st">&#39;/starterkit/</span><span class="ot">{jid}</span><span class="st">_</span><span class="ot">{fname}</span><span class="st">&#39;</span>
-j.outputfiles = [f] </code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">f <span class="op">=</span> MassStorageFile(<span class="st">&#39;DVntuple.root&#39;</span>)
+f.outputfilenameformat <span class="op">=</span> <span class="st">&#39;/starterkit/</span><span class="sc">{jid}</span><span class="st">_</span><span class="sc">{fname}</span><span class="st">&#39;</span>
+j.outputfiles <span class="op">=</span> [f] </code></pre></div>
 <p><code>ganga</code> uses the string you pass to a <code>MassStorageFile</code> constructor to match which files created by your job this <code>MassStorageFile</code> object represents. In this case only files named <code>DVntuple.root</code> will match.</p>
 <p>The <code>outputfilenameformat</code> tells ganga where inside your EOS area to store the file and how to name it. The full path to this particular file will be:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">/eos/lhcb/user/a/another/starterkit</span>/<span class="dt">{jid}_{fname}</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">/eos/lhcb/user/a/another/starterkit</span>/<span class="dt">{jid}_{fname}</span></code></pre></div>
 <div id="special-outputfileformat-patterns" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Special outputfileformat patterns</h2>
+<h2 id="special-outputfileformat-patterns" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Special outputfileformat patterns</h2>
 </div>
 <div class="panel-body">
 <p>Your <code>outputfilenameformat</code> string can contain several special strings which will be replaced on a file by file basis. The special strings are: <code>{jid}</code>, <code>{sjid}</code> and <code>{fname}</code>. They stand for job ID, subjob ID, and the filename of the matched file respectively.</p>
@@ -134,7 +136,7 @@ j.outputfiles = [f] </code></pre>
 </div>
 <div id="subjobs-and-outputfileformat" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Subjobs and outputfileformat</h2>
+<h2 id="subjobs-and-outputfileformat" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Subjobs and outputfileformat</h2>
 </div>
 <div class="panel-body">
 <p>When using subjobs it is important to make sure you include the <code>{sjid}</code> pattern in your <code>outputfilenameformat</code> string, otherwise all the subjobs will overwrite each others output.</p>
@@ -145,14 +147,14 @@ j.outputfiles = [f] </code></pre>
 <p>Once your job has completed and the files have been copied to EOS by <code>ganga</code> you can access them from your terminal by mounting your EOS area.</p>
 <div id="important" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Important!</h2>
+<h2 id="important" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Important!</h2>
 </div>
 <div class="panel-body">
 <p>Important: mounting eos is discouraged by the LHCb data management team, and no support will be provided by them for problems/questions related to it.</p>
 </div>
 </div>
 <p>On <code>lxplus</code> EOS is mount under /eos like this:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> -al /eos/user</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">ls</span> -al /eos/user</code></pre></div>
 <pre class="output"><code>total 0
 drwxr-xr-x. 1 daemon root 269935142640435 Oct  6  2014 .
 drwxr-xr-x. 9 root   root               0 Oct 24 11:30 ..
@@ -170,16 +172,16 @@ drwxr-xr-x. 1 daemon root   8360665587286 Oct 30 13:46 j</code></pre>
 <p>If you list the contents of the <code>/eos</code> directory you should see</p>
 <pre class="output"><code>lhcb ship user</code></pre>
 <p>If you used <code>/eos/lhcb/user/a/another/starterkit/{jid}_{fname}</code> when configuring your <code>MassStorageFiles</code> there should now be files visible here:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> /eos/lhcb/user/a/another/starterkit</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">ls</span> /eos/lhcb/user/a/another/starterkit</code></pre></div>
 <p>Once you have found your file you can open it in <code>ROOT</code> like this:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">root</span> /eos/lhcb/user/a/another/starterkit/myfavouritefile.root</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="ex">root</span> /eos/lhcb/user/a/another/starterkit/myfavouritefile.root</code></pre></div>
 <div id="direct-access-in-root" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Direct access in ROOT</h2>
+<h2 id="direct-access-in-root" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Direct access in ROOT</h2>
 </div>
 <div class="panel-body">
 <p>You can also open ROOT files on EOS directly from your ROOT script with:</p>
-<pre class="sourceCode python"><code class="sourceCode python">TFile::Open(<span class="st">&#39;root://eoslhcb.cern.ch//eos/lhcb/user/a/another/starterkit/myfavouritefile.root&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">TFile::Open(<span class="st">&#39;root://eoslhcb.cern.ch//eos/lhcb/user/a/another/starterkit/myfavouritefile.root&#39;</span>)</code></pre></div>
 </div>
 </div>
         </div>

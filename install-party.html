@@ -36,7 +36,7 @@
           <h2 class="subtitle">Install party</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -48,7 +48,7 @@
 <p>In order to follow the Basics part of the workshop (first two days) you will need to have recent versions of Python and Git installed either on your laptop or on lxplus. The instructions below explain how you can install Python and libraries for scientific computing on lxplus by using the the Anaconda Python distribution. After that, they explain how you can compile a recent version of git, because the default version on lxplus is very old and doesn't support all the features we'll need.</p>
 <div id="health-warning" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Health warning</h2>
+<h2 id="health-warning" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Health warning</h2>
 </div>
 <div class="panel-body">
 <p>Once you install things yourself you have an environment that is different from the &quot;standard&quot; LHCb setup. It means you have to keep software up-to-date yourself and when things start going wrong everyone will blame it on your custom setup. Keep that in mind. With great tools comes great responsibility.</p>
@@ -63,12 +63,12 @@
 </ol>
 <p><code>bash    $ wget https://repo.continuum.io/archive/Anaconda2-4.2.0-Linux-x86_64.sh</code> Where the argument to wget is the link address you copied. The link address may change as new versions of anaconda are released so be aware! 4. Then on <code>lxplus</code> type <code>bash Anaconda2-4.2.0-Linux-x86_64.sh</code> in the directory to which you downloaded the installer. Use <code>bash</code> no matter what your shell actually is. 5. Follow the on-screen instructions and go with the default answer to all questions.</p>
 <p>This will install a modern set of python libraries to <code>~/anaconda</code>. This means you need to have some free space on your AFS home directory. Once it is done check that the installer added these two lines to your <code>.bashrc</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># added by Anaconda2 4.2.0 installer</span>
-<span class="kw">export</span> <span class="ot">PATH=</span><span class="st">&quot;~/anaconda2/bin:</span><span class="ot">$PATH</span><span class="st">&quot;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># added by Anaconda2 4.2.0 installer</span>
+<span class="bu">export</span> <span class="va">PATH=</span><span class="st">&quot;~/anaconda2/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></code></pre></div>
 <p>Log out of <code>lxplus</code> and back in. Now you should be able to start <code>python</code> as well as <code>ipython</code>, etc.</p>
 <div id="removing-anaconda" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Removing Anaconda</h2>
+<h2 id="removing-anaconda" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Removing Anaconda</h2>
 </div>
 <div class="panel-body">
 <p>To remove <code>Anaconda</code> temporarily, simply comment out the two lines that were added to your <code>.bashrc</code> file. To permanently remove it simply delete the <code>anaconda</code> directory in your home directory.</p>
@@ -79,21 +79,21 @@
 <li>Visit the <a href="https://github.com/git/git">git repository</a> on github</li>
 <li>Click on &quot;releases&quot;, which takes you to the list of <a href="https://github.com/git/git/releases">all git releases</a></li>
 <li><p>Download the <code>.tar.gz</code> for the latest release (v2.10.2) to <code>lxplus</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">wget</span> https://github.com/git/git/archive/v2.10.2.tar.gz</code></pre></li>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="fu">wget</span> https://github.com/git/git/archive/v2.10.2.tar.gz</code></pre></div></li>
 <li>unpack the <code>.tar.gz</code> with <code>tar xzf v2.10.2.tar.gz</code></li>
 <li>Change to the newly created <code>git-2.10.2</code> directory: <code>cd git-2.20.2</code></li>
 <li>Follow the <a href="https://github.com/git/git/blob/master/INSTALL">INSTALL</a> instructions.</li>
 <li><p>To install <code>git</code> in your home directory type:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">export</span> <span class="ot">CURLDIR=$HOME</span>/anaconda
-$ <span class="kw">mkdir</span> <span class="ot">$HOME</span>/git-install-2.10.2
-$ <span class="kw">make</span> prefix=<span class="ot">$HOME</span>/git-install-2.10.2
-$ <span class="kw">make</span> prefix=<span class="ot">$HOME</span>/git-install-2.10.2 install</code></pre></li>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="bu">export</span> <span class="va">CURLDIR=$HOME</span>/anaconda
+$ <span class="fu">mkdir</span> <span class="va">$HOME</span>/git-install-2.10.2
+$ <span class="fu">make</span> prefix=<span class="va">$HOME</span>/git-install-2.10.2
+$ <span class="fu">make</span> prefix=<span class="va">$HOME</span>/git-install-2.10.2 install</code></pre></div></li>
 <li><p>Add the following line to your <code>.bashrc</code>:</p>
-<pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">export</span> <span class="ot">PATH=</span><span class="st">&quot;</span><span class="ot">$HOME</span><span class="st">/git-install-2.10.2/bin:</span><span class="ot">$PATH</span><span class="st">&quot;</span></code></pre></li>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="bu">export</span> <span class="va">PATH=</span><span class="st">&quot;</span><span class="va">$HOME</span><span class="st">/git-install-2.10.2/bin:</span><span class="va">$PATH</span><span class="st">&quot;</span></code></pre></div></li>
 </ol>
 <div id="removing-git" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Removing git</h2>
+<h2 id="removing-git" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Removing git</h2>
 </div>
 <div class="panel-body">
 <p>To temporarily remove <code>git</code> remove the line you added to your <code>.bashrc</code>, and delete the <code>git-install-2.10.2</code> directory in your home directory to remove it permanently.</p>

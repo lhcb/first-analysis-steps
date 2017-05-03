@@ -36,7 +36,7 @@
           <h2 class="subtitle">TupleTools and branches</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -51,7 +51,7 @@
 <p>Usually, the default information stored by <code>DecayTreeTuple</code> as shown in our <a href="minimal-dv-job.html">minimal DaVinci job</a> is not enough for physics analysis. Fortunately, most of the information we need can be added by adding C++ tools (known as <code>TupleTools</code>) to <code>dtt</code>; there is an extensive library of these, some of which will be briefly discussed during the lesson.</p>
 <div id="default-decaytreetuple-tools" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Default DecayTreeTuple tools</h2>
+<h2 id="default-decaytreetuple-tools" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Default DecayTreeTuple tools</h2>
 </div>
 <div class="panel-body">
 <p>The default tools added in <code>DecayTreeTuple</code> are:</p>
@@ -65,39 +65,39 @@
 </div>
 </div>
 <p>In order to add <code>TupleTools</code> to <code>dtt</code>, we have to use the <code>addTupleTool</code> method of <code>DecayTreeTuple</code> (only available when we have <code>from DecayTreeTuple.Configuration import *</code> in our script). This method instantiates the tool, adds it to the list of tools to execute and returns it. For example, if we want to fill the tracking information of our particles, we can add the <code>TupleToolTrackInfo</code> tool in the following way:</p>
-<pre class="sourceCode python"><code class="sourceCode python">track_tool = dtt.addTupleTool(<span class="st">&#39;TupleToolTrackInfo&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">track_tool <span class="op">=</span> dtt.addTupleTool(<span class="st">&#39;TupleToolTrackInfo&#39;</span>)</code></pre></div>
 <p>Some tools can be configured. For example, if we wanted further information from the tracks, such as the number of degrees of freedom of the track fit, we would have to turn on the verbose mode of the tool:</p>
-<pre class="sourceCode python"><code class="sourceCode python">track_tool.Verbose = <span class="ot">True</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">track_tool.Verbose <span class="op">=</span> <span class="va">True</span></code></pre></div>
 <p>If we don't need to configure the tool or we want to use the defaults, there's no need for storing the returned tool in a variable. For example, if we wanted the information of the PV associated to our particle, we could just add the <code>TupleToolPrimaries</code> with no further configuration:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.addTupleTool(<span class="st">&#39;TupleToolPrimaries&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.addTupleTool(<span class="st">&#39;TupleToolPrimaries&#39;</span>)</code></pre></div>
 <p>The way the <code>DecayTreeTuple.Decay</code> is written in in our <a href="minimal-dv-job.html">minimal DaVinci job</a>,</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Decay = <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Decay <span class="op">=</span> <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span></code></pre></div>
 <p>means that the configured <code>TupleTools</code> will only run on the head of the decay chain, that is, the <code>D*(2010)+</code>. In order to select the particles for which we want the information stored, we need to mark them with a <code>^</code> symbol in the decay descriptor. For example, if we want to fill the information of the <code>D0</code> and its children, as well as the soft <code>pi+</code>, we would modify the above line to look like this:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Decay = <span class="st">&#39;[D*(2010)+ -&gt; ^(D0 -&gt; ^K- ^pi+) ^pi+]CC&#39;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Decay <span class="op">=</span> <span class="st">&#39;[D*(2010)+ -&gt; ^(D0 -&gt; ^K- ^pi+) ^pi+]CC&#39;</span></code></pre></div>
 <p>This will run all the configured <code>TupleTools</code> on the marked particles, with the caveat that some tools are only run on certain types of particles (eg, tracking tools on particles that have an associated track). This configuration is not optimal, since there may be tools which we only want to run on the D's and some only on the children. Enter <code>Branches</code>, which allow us to specify which tools get applied to which particle in the decay (in addition to the <code>TupleTools</code> configured at the top level).</p>
 <p><em>Branches</em> let you define custom namespaces in your ntuple by means of a <code>dict</code>. Its keys define the name of each branch (and, as a consequence, the prefix of the corresponding leaves in the ntuple), while the corresponding values are decay descriptors that specify which particles you want to include in the branch.</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.addBranches({<span class="st">&#39;Dstar&#39;</span> : <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span>,
-                 <span class="co">&#39;D0&#39;</span>    : <span class="st">&#39;[D*(2010)+ -&gt; ^(D0 -&gt; K- pi+) pi+]CC&#39;</span>,
-                 <span class="co">&#39;Kminus&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; ^K- pi+) pi+]CC&#39;</span>,
-                 <span class="co">&#39;piplus&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- ^pi+) pi+]CC&#39;</span>,
-                 <span class="co">&#39;pisoft&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) ^pi+]CC&#39;</span>})</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.addBranches({<span class="st">&#39;Dstar&#39;</span> : <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span>,
+                 <span class="st">&#39;D0&#39;</span>    : <span class="st">&#39;[D*(2010)+ -&gt; ^(D0 -&gt; K- pi+) pi+]CC&#39;</span>,
+                 <span class="st">&#39;Kminus&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; ^K- pi+) pi+]CC&#39;</span>,
+                 <span class="st">&#39;piplus&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- ^pi+) pi+]CC&#39;</span>,
+                 <span class="st">&#39;pisoft&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) ^pi+]CC&#39;</span>})</code></pre></div>
 <p>Note that in order to use branches, we have to make sure that all particles we want to use are marked in the main decay descriptor (<code>dtt.Decay</code>). DaVinci will ignore branches for particles that have not been marked in <code>dtt.Decay</code>!</p>
 <p>Once the branches have been configured, they can be accessed as <code>dtt.PARTICLENAME</code>and <code>TupleTools</code> can be added as discussed before. For example, if we want to store the proper time information of the D0, we would do</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.D0.addTupleTool(<span class="st">&#39;TupleToolPropertime&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.D0.addTupleTool(<span class="st">&#39;TupleToolPropertime&#39;</span>)</code></pre></div>
 <div id="do-i-really-have-to-type-my-decay-descriptor-that-many-times" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Do I really have to type my decay descriptor that many times?</h2>
+<h2 id="do-i-really-have-to-type-my-decay-descriptor-that-many-times" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Do I really have to type my decay descriptor that many times?</h2>
 </div>
 <div class="panel-body">
 <p>No! You can use the (new) <code>dtt.setDescriptorTemplate()</code> method to set up your decay descriptor and branches in just one line! Well, nearly: because this is a new feature it is not available in most released versions of <code>DaVinci</code>, but <a href="https://gitlab.cern.ch/snippets/147">this snippet</a> will add it to an older version. With that out of the way, you can simply use</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.setDescriptorTemplate(<span class="st">&#39;$</span><span class="ot">{Dstar}</span><span class="st">[D*(2010)+ -&gt; $</span><span class="ot">{D0}</span><span class="st">(D0 -&gt; $</span><span class="ot">{Kminus}</span><span class="st">K- $</span><span class="ot">{piplus}</span><span class="st">pi+) $</span><span class="ot">{pisoft}</span><span class="st">pi+]CC&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.setDescriptorTemplate(<span class="st">&#39;$</span><span class="sc">{Dstar}</span><span class="st">[D*(2010)+ -&gt; $</span><span class="sc">{D0}</span><span class="st">(D0 -&gt; $</span><span class="sc">{Kminus}</span><span class="st">K- $</span><span class="sc">{piplus}</span><span class="st">pi+) $</span><span class="sc">{pisoft}</span><span class="st">pi+]CC&#39;</span>)</code></pre></div>
 <p>This will set up both <code>dtt.Decay</code> and <code>Branches</code> for you.</p>
 </div>
 </div>
 <p>The usage of <code>Branches</code> is very important (and strongly encouraged) to keep the size of your ntuples small, since it prevents us from storing unneeded information (for example trigger information, which will be discussed at a later lesson).</p>
 <div id="where-to-find-tupletools" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Where to find TupleTools</h2>
+<h2 id="where-to-find-tupletools" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Where to find TupleTools</h2>
 </div>
 <div class="panel-body">
 <p>One of the most difficult things is to know which tool we need to add to our <code>DecayTreeTuple</code> in order to get the information we want. For this, it is necessary to know where to find <code>TupleTools</code> and their code. <code>TupleTools</code> are spread in 9 packages under <code>Analysis/Phys</code> (see the master branch in <code>git</code> <a href="https://gitlab.cern.ch/lhcb/Analysis/tree/master/Phys">here</a>), all starting with the prefix <code>DecayTreeTuple</code>, according to the type of information they fill in our ntuple:</p>
@@ -119,7 +119,7 @@
 <p>The updated options can be found <a href="./code/add-tupletools/ntuple_options.py">here</a>.</p>
 <div id="test-your-ntuple" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Test your ntuple</h2>
+<h2 id="test-your-ntuple" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Test your ntuple</h2>
 </div>
 <div class="panel-body">
 <p>Run the options in the same way as in the <a href="minimal-dv-job.html">minimal DaVinci job</a> lesson. You will obtain a <code>DVntuple.root</code> file, which we can open and inspect with <code>ROOT</code>'s <code>TBrowser</code>:</p>
@@ -133,45 +133,45 @@ root [2]</code></pre>
 </div>
 <p>Picking up with the <a href="loki-functors.html">LoKi functors lesson</a>, let's store some specific bits of information discussed there in our ntuple. To add LoKi-based leaves to the tree, we need to use the <code>LoKi::Hybrid::TupleTool</code>, which is configured with 3 arguments:</p>
 <ul>
-<li><p>Its <em>name</em>, specified in the <code>addTupleTool</code> call after a <code>/</code>. This is very useful (and recommended) if we want to have different <code>LoKi::Hybrid::TupleTool</code> for each of our branches. For instance, we may want to add different information for the D*, the D0 and the soft <span class="math">\(\pi\)</span>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dstar_hybrid = dtt.Dstar.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_Dstar&#39;</span>)
-d0_hybrid = dtt.D0.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_D0&#39;</span>)
-pisoft_hybrid = dtt.pisoft.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_PiSoft&#39;</span>)</code></pre></li>
+<li><p>Its <em>name</em>, specified in the <code>addTupleTool</code> call after a <code>/</code>. This is very useful (and recommended) if we want to have different <code>LoKi::Hybrid::TupleTool</code> for each of our branches. For instance, we may want to add different information for the D*, the D0 and the soft <span class="math inline">\(\pi\)</span>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dstar_hybrid <span class="op">=</span> dtt.Dstar.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_Dstar&#39;</span>)
+d0_hybrid <span class="op">=</span> dtt.D0.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_D0&#39;</span>)
+pisoft_hybrid <span class="op">=</span> dtt.pisoft.addTupleTool(<span class="st">&#39;LoKi::Hybrid::TupleTool/LoKi_PiSoft&#39;</span>)</code></pre></div></li>
 <li><p>The <code>Preambulo</code> property, which lets us perform preprocessing of the LoKi functors to simplify the code that is used to fill the leaves, for example creating combinations of LoKi functors or performing mathematical operations:</p>
-<pre class="sourceCode python"><code class="sourceCode python">preamble = [
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">preamble <span class="op">=</span> [
     <span class="st">&#39;DZ = VFASPF(VZ) - BPV(VZ)&#39;</span>,
-    <span class="co">&#39;TRACK_MAX_PT = MAXTREE(ISBASIC &amp; HASTRACK, PT, -1)&#39;</span>
+    <span class="st">&#39;TRACK_MAX_PT = MAXTREE(ISBASIC &amp; HASTRACK, PT, -1)&#39;</span>
 ]
-dstar_hybrid.Preambulo = preamble
-d0_hybrid.Preambulo = preamble</code></pre></li>
+dstar_hybrid.Preambulo <span class="op">=</span> preamble
+d0_hybrid.Preambulo <span class="op">=</span> preamble</code></pre></div></li>
 <li><p>The <code>Variables</code> property, consisting of a <code>dict</code> of (variable name, LoKi functor) pairs. In here, LoKi functors can be used, as well as any variable we may have defined in the <code>Preambulo</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dstar_hybrid.Variables = {
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dstar_hybrid.Variables <span class="op">=</span> {
     <span class="st">&#39;mass&#39;</span>: <span class="st">&#39;M&#39;</span>,
-    <span class="co">&#39;mass_D0&#39;</span>: <span class="st">&#39;CHILD(M, 1)&#39;</span>,
-    <span class="co">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>,
-    <span class="co">&#39;dz&#39;</span>: <span class="st">&#39;DZ&#39;</span>,
-    <span class="co">&#39;dira&#39;</span>: <span class="st">&#39;BPVDIRA&#39;</span>,
-    <span class="co">&#39;max_pt&#39;</span>: <span class="st">&#39;MAXTREE(ISBASIC &amp; HASTRACK, PT, -1)&#39;</span>,
-    <span class="co">&#39;max_pt_preambulo&#39;</span>: <span class="st">&#39;TRACK_MAX_PT&#39;</span>,
-    <span class="co">&#39;sum_pt_pions&#39;</span>: <span class="st">&#39;SUMTREE(211 == ABSID, PT)&#39;</span>,
-    <span class="co">&#39;n_highpt_tracks&#39;</span>: <span class="st">&#39;NINTREE(ISBASIC &amp; HASTRACK &amp; (PT &gt; 1500*MeV))&#39;</span>
+    <span class="st">&#39;mass_D0&#39;</span>: <span class="st">&#39;CHILD(M, 1)&#39;</span>,
+    <span class="st">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>,
+    <span class="st">&#39;dz&#39;</span>: <span class="st">&#39;DZ&#39;</span>,
+    <span class="st">&#39;dira&#39;</span>: <span class="st">&#39;BPVDIRA&#39;</span>,
+    <span class="st">&#39;max_pt&#39;</span>: <span class="st">&#39;MAXTREE(ISBASIC &amp; HASTRACK, PT, -1)&#39;</span>,
+    <span class="st">&#39;max_pt_preambulo&#39;</span>: <span class="st">&#39;TRACK_MAX_PT&#39;</span>,
+    <span class="st">&#39;sum_pt_pions&#39;</span>: <span class="st">&#39;SUMTREE(211 == ABSID, PT)&#39;</span>,
+    <span class="st">&#39;n_highpt_tracks&#39;</span>: <span class="st">&#39;NINTREE(ISBASIC &amp; HASTRACK &amp; (PT &gt; 1500*MeV))&#39;</span>
 }
-d0_hybrid.Variables = {
+d0_hybrid.Variables <span class="op">=</span> {
     <span class="st">&#39;mass&#39;</span>: <span class="st">&#39;M&#39;</span>,
-    <span class="co">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>,
-    <span class="co">&#39;dira&#39;</span>: <span class="st">&#39;BPVDIRA&#39;</span>,
-    <span class="co">&#39;vtx_chi2&#39;</span>: <span class="st">&#39;VFASPF(VCHI2)&#39;</span>,
-    <span class="co">&#39;dz&#39;</span>: <span class="st">&#39;DZ&#39;</span>
+    <span class="st">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>,
+    <span class="st">&#39;dira&#39;</span>: <span class="st">&#39;BPVDIRA&#39;</span>,
+    <span class="st">&#39;vtx_chi2&#39;</span>: <span class="st">&#39;VFASPF(VCHI2)&#39;</span>,
+    <span class="st">&#39;dz&#39;</span>: <span class="st">&#39;DZ&#39;</span>
 }
-pisoft_hybrid.Variables = {
+pisoft_hybrid.Variables <span class="op">=</span> {
     <span class="st">&#39;p&#39;</span>: <span class="st">&#39;P&#39;</span>,
-    <span class="co">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>
-}</code></pre></li>
+    <span class="st">&#39;pt&#39;</span>: <span class="st">&#39;PT&#39;</span>
+}</code></pre></div></li>
 </ul>
 <p>In the code snippets specified above (available <a href="code/add-tupletools/ntuple_options_loki.py">here</a>), you can see that the <code>NINTREE</code> functor counts the number of particles that pass the specified criteria. While this is not very useful for ntuple-building (we can always do it offline), it's a very powerful functor to use when building decay selections.</p>
 <div id="getting-more-practice" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Getting more practice</h2>
+<h2 id="getting-more-practice" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Getting more practice</h2>
 </div>
 <div class="panel-body">
 <p>In the <code>LoKi::Hybrid::TupleTool</code>we've used some functors that have not been described previously. Find out what they do in the <a href="http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/davinci/latest_doxygen/d7/dae/namespace_lo_ki_1_1_cuts.html">doxygen</a>. To check <code>SUMTREE</code> and <code>CHILD</code>, run the code above and check that the <code>Dstar_max_pt</code> and <code>Dstar_max_pt_preambulo</code> and the <code>Dstar_mass_D0</code> and <code>D0_mass</code> branches have exactly the same values.</p>

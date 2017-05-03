@@ -36,7 +36,7 @@
           <h2 class="subtitle">How do I use DecayTreeFitter?</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -48,34 +48,34 @@
 </div>
 <p>Once you have made a hypothesis on the chain of decays that lead to your final state, you then can incorporate the additional knowledge that comes with this hypothesis to get a new best estimate for the particle parameters -- in particular their momenta. The additional knowledge is represented as constraints, which your decay tree has to fulfill.</p>
 <p>For example, for the decay</p>
-<pre class="sourceCode python"><code class="sourceCode python"><span class="co">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span></code></pre></div>
 <p>you can make the assumption that the (K- pi+) combine to form a D0 with a specific invariant mass. This results in a so called <em>mass-constraint</em>. In addition the kaon and the pion should originate from exactly the same point in space. If you know that your data only contains prompt D* candidates, you can constrain them to do come from the primary vertex. Boundary conditions like those are called <em>vertex-constraints</em>.</p>
 <p>Applying such kinematic constraints leads to new best estimates for the track parameters of the final state particles. The process of calculating those is called a <em>kinematic refit</em> and the <code>TupleToolDecayTreeFitter</code> is the algorithm that performs this task for us.</p>
 <div id="the-physics-and-mathematics-behind-decaytreefitter" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>The physics and mathematics behind DecayTreeFitter</h2>
+<h2 id="the-physics-and-mathematics-behind-decaytreefitter" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>The physics and mathematics behind DecayTreeFitter</h2>
 </div>
 <div class="panel-body">
 <p>For details of the method see the paper on <a href="http://arxiv.org/abs/physics/0503191">Decay chain fitting with a Kalman filter</a>.</p>
 </div>
 </div>
 <p>So how do we use a <code>TupleToolDecayTreeFitter</code> to our DaVinci script? Let's create a branch to add the tool to. We'll just name it <code>'Dstar'</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.addBranches({
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.addBranches({
     <span class="st">&#39;Dstar&#39;</span>: <span class="st">&#39;[D*(2010)+ -&gt; (D0 -&gt; K- pi+) pi+]CC&#39;</span>,
-})</code></pre>
+})</code></pre></div>
 <p>To this branch we can now apply the <code>TupleToolDecayTreeFitter</code>.</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.addTupleTool(<span class="st">&#39;TupleToolDecayTreeFitter/ConsD&#39;</span>)</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.addTupleTool(<span class="st">&#39;TupleToolDecayTreeFitter/ConsD&#39;</span>)</code></pre></div>
 <p>Now we can proceed with the configuration of the fitter. We are going to constrain the decay tree to the primary vertex of origin. We want all the output available, so we set the <code>verbose</code> option. Finally we want to apply the mass constraint on the D0:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsD.constrainToOriginVertex = <span class="ot">True</span>
-dtt.Dstar.ConsD.Verbose = <span class="ot">True</span>
-dtt.Dstar.ConsD.daughtersToConstrain = [<span class="st">&#39;D0&#39;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsD.constrainToOriginVertex <span class="op">=</span> <span class="va">True</span>
+dtt.Dstar.ConsD.Verbose <span class="op">=</span> <span class="va">True</span>
+dtt.Dstar.ConsD.daughtersToConstrain <span class="op">=</span> [<span class="st">&#39;D0&#39;</span>]</code></pre></div>
 <p>Note that you can constrain more than one intermediate state at once if that fits your decay.</p>
 <p>When using the <code>DecayTreeFitter</code> in a <code>DecayTreeTuple</code>, all the variables created by the other TupleTools are not affected by the change, but some new variables are created, one set per <code>DecayTreeFitter</code> instance. Depending on whether the <code>Verbose</code> option is specified, the new variables are created for the head particle only or for the head particle and its daughters too.</p>
 <p>If the daughters are not stable particles and decay further, the daughters of the daughters have no new variables associated to them by default. Since in many cases this information might be useful, there is an option to store the information from those tracks</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsD.UpdateDaughters = <span class="ot">True</span></code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsD.UpdateDaughters <span class="op">=</span> <span class="va">True</span></code></pre></div>
 <div id="decaytreefitter-and-loki-functors" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>DecayTreeFitter and LoKi functors</h2>
+<h2 id="decaytreefitter-and-loki-functors" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>DecayTreeFitter and LoKi functors</h2>
 </div>
 <div class="panel-body">
 <p>Alternatively, many of the operations described above can done by using the <code>DecayTreeFitter</code> via LoKi functors, see the <a href="https://twiki.cern.ch/twiki/bin/view/LHCb/DaVinciTutorial9b">DaVinci tutorial</a> for details.</p>
@@ -83,7 +83,7 @@ dtt.Dstar.ConsD.daughtersToConstrain = [<span class="st">&#39;D0&#39;</span>]</c
 </div>
 <div id="which-constraints-to-apply" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Which constraints to apply</h2>
+<h2 id="which-constraints-to-apply" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Which constraints to apply</h2>
 </div>
 <div class="panel-body">
 <p>It is important to be aware what assumptions you bake into your ntuple. For example, after you require the vertex constraint you must be careful if using the <code>IPCHI2_OWNPV</code>, since the particle you are looking at is <em>forced</em> to point to the PV. Which constraints make most sense for you depends on the questions you want to ask in your analysis, so ask your supervisor/working group in case of doubt.</p>
@@ -97,7 +97,7 @@ DecayTree-&gt;StartViewer()</code></pre>
 <p><img src="./img/DstarRaw.png" alt="Dstar raw" style="width: 500px;"/></p>
 <div id="which-mass-variable-to-use" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>Which mass variable to use</h2>
+<h2 id="which-mass-variable-to-use" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>Which mass variable to use</h2>
 </div>
 <div class="panel-body">
 <p>In many ntuples you also find a mass variable called <code>_MM</code>. This confusingly refers to measured mass. However, it is usually better to use <code>_M</code>. <code>_MM</code> is the sum of the 4-momenta of the final state particles extrapolated back to the fitted vertex position, but not the result of the actual vertex fit.</p>
@@ -117,7 +117,7 @@ DecayTree-&gt;StartViewer()</code></pre>
 <p>As expected, the D0 candidates are forced onto their PDG mass value.</p>
 <div id="explore" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Explore</h2>
+<h2 id="explore" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Explore</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -127,21 +127,21 @@ DecayTree-&gt;StartViewer()</code></pre>
 </div>
 </div>
 <p><code>DecayTreeFitter</code> can be told to change some of the hypotheses in the decay tree. This is very useful if you want to slightly change which decays you want to look at. As an example let's say we want to examine the Cabibbo-suppressed decay of the D0 into pi- pi+ instead of K- pi+. For this we add a second fitter, giving it a new name <code>ConsDpipi</code>:</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.addTupleTool(<span class="st">&#39;TupleToolDecayTreeFitter/ConsDpipi&#39;</span>)
-dtt.Dstar.ConsDpipi.constrainToOriginVertex = <span class="ot">True</span>
-dtt.Dstar.ConsDpipi.Verbose = <span class="ot">True</span>
-dtt.Dstar.ConsDpipi.daughtersToConstrain = [<span class="st">&#39;D0&#39;</span>]</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.addTupleTool(<span class="st">&#39;TupleToolDecayTreeFitter/ConsDpipi&#39;</span>)
+dtt.Dstar.ConsDpipi.constrainToOriginVertex <span class="op">=</span> <span class="va">True</span>
+dtt.Dstar.ConsDpipi.Verbose <span class="op">=</span> <span class="va">True</span>
+dtt.Dstar.ConsDpipi.daughtersToConstrain <span class="op">=</span> [<span class="st">&#39;D0&#39;</span>]</code></pre></div>
 <p>We now can tell the fitter to substitute the kaon in the D0 decay by a pion.</p>
-<pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsDpipi.Substitutions = {
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">dtt.Dstar.ConsDpipi.Substitutions <span class="op">=</span> {
     <span class="st">&#39;Charm -&gt; (D0 -&gt; ^K- pi+) Meson&#39;</span>: <span class="st">&#39;pi-&#39;</span>,
-    <span class="co">&#39;Charm -&gt; (D~0 -&gt; ^K+ pi-) Meson&#39;</span>: <span class="st">&#39;pi+&#39;</span>
-}</code></pre>
+    <span class="st">&#39;Charm -&gt; (D~0 -&gt; ^K+ pi-) Meson&#39;</span>: <span class="st">&#39;pi+&#39;</span>
+}</code></pre></div>
 <p>In the dictionary that is passed to the <code>Substitutions</code> property of the fitter, the keys are decay descriptors, where the respective particle to be substituted is marked with a <code>^</code>. The values are the respective new particle hypotheses. The substitution will only work if you start from a decay descriptor that actually matches your candidates. However, you are allowed to generalise parts of the decay. Here we replaced <code>D*(2010)</code> with the more general <code>Charm</code> and the bachelor <code>pi-</code> is just represented by a <code>Meson</code>.</p>
 <p>Note that the substitution mechanism does not understand the <code>CC</code> symbol. Both charge states have to be specified explicitely.</p>
 <p>Running the ntuple script again with these additions gives you fit results for the re-interpreted decay.</p>
 <div id="challenge" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Challenge</h2>
+<h2 id="challenge" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Challenge</h2>
 </div>
 <div class="panel-body">
 <ul>

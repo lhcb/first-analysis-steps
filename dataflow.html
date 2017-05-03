@@ -36,7 +36,7 @@
           <h2 class="subtitle">The LHCb data flow</h2>
 <div id="learning-objectives" class="objectives panel panel-warning">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+<h2 id="learning-objectives" class="objectives panel panel-warning"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
 </div>
 <div class="panel-body">
 <ul>
@@ -63,7 +63,7 @@
 <li><p>The reconstructed DST files are suitable for analysis, but they are not accessible to users due to computing restrictions. Data are filtered further through a set of selections called the <em>stripping</em>, controlled by the DaVinci application which write out data either in the DST or ‘µDST’ (micro-DST) format. To save disk space and to speed up access for analysts, the output files are grouped into <em>streams</em> which contain similar selections. By grouping all of the fully hadronic charm selections together, for example, analysts interested in that type of physics don't waste time running over the output of the dimuon selections.</p>
 <div id="the-output-format" class="callout panel panel-info">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pushpin"></span>The output format</h2>
+<h2 id="the-output-format" class="callout panel panel-info"><span class="glyphicon glyphicon-pushpin"></span>The output format</h2>
 </div>
 <div class="panel-body">
 <p>A DST file is a ROOT file which contains the full event information, such as reconstructed objects and raw data. Each event typically takes around 150kB of disk space in the DST format. The µDST format was designed to save space by storing only the information concerning the build <em>candidates</em> (that is, the objects used to construct particle decays like tracks); the raw event, which takes around 50kB per event, is discarded.</p>
@@ -81,7 +81,7 @@
 <p>Knowing this flow is essential in selecting your data! Different application versions can produce very different physics, so it's very useful to know how each application has manipulated the data you want to use.</p>
 <div id="why-are-there-multiple-applications" class="challenge panel panel-success">
 <div class="panel-heading">
-<h2><span class="glyphicon glyphicon-pencil"></span>Why are there multiple applications?</h2>
+<h2 id="why-are-there-multiple-applications" class="challenge panel panel-success"><span class="glyphicon glyphicon-pencil"></span>Why are there multiple applications?</h2>
 </div>
 <div class="panel-body">
 <p>It's often simpler to create and visualise a single, monolithic program that does <em>everything</em>, but that's not how the data flow is set up in LHCb. Why not? What are the advantages of splitting up the software per task? What are the disadvantages?</p>
