@@ -1,11 +1,5 @@
-# First Analysis Steps [![Build Status](https://travis-ci.org/lhcb/first-analysis-steps.svg?branch=master)](https://travis-ci.org/lhcb/first-analysis-steps)
+# First Analysis Steps
 
-This repository contains lessons that will get you started
-with the basic analysis steps needed for LHCb.
+This repository has been deprecated in favour of the new [starterkit-lessons](https://lhcb.github.io/starterkit-lessons/) site.
 
-> Please see [CONTRIBUTING.md](CONTRIBUTING.md)
-> for instructions on how to contribute.
-
-> Please see [swc-lesson-example](https://github.com/swcarpentry/lesson-example)
-> for instructions on formatting, building, and submitting lessons,
-> or run `make` in this directory for a list of helpful commands.
+https://github.com/lhcb/starterkit-lessons
